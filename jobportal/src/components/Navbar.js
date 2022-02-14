@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 function Navbar() {
@@ -16,11 +16,12 @@ function Navbar() {
         history.push("/");
     }
 
+    let location = useLocation();
   return <div>
 	  <header className="header-area overlay">
         <nav className="navbar navbar-expand-md navbar-dark fixed-top">
             <div className="container">
-                <Link to="/login" className="navbar-brand">Jobguru.com</Link>
+                <Link to="/" className="navbar-brand">Jobguru.com</Link>
                 
                 <button type="button" className="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
                     <span className="menu-icon-bar"></span>
@@ -30,8 +31,8 @@ function Navbar() {
                 
                 <div id="main-nav" className="collapse navbar-collapse">
                     <ul className="navbar-nav ml-auto">
-                        <li><Link to="/" className="nav-item nav-link active">Home</Link></li>
-                        <li><Link to="/" className="nav-item nav-link">About Us</Link></li>
+                        <li><Link to="/" className={`nav-item nav-link ${location.pathname==="/"? "active" : ""}`}>Home</Link></li>
+                        <li><Link to="/about" className={`nav-item nav-link ${location.pathname==="/about"? "active" : ""}`}>About Us</Link></li>
                         <li className="dropdown">
                             <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Services</Link>
                             <div className="dropdown-menu">
@@ -51,10 +52,18 @@ function Navbar() {
                             </div>
                         </li>
 
-                        {!localStorage.getItem("token") ? <><li><Link className="nav-item nav-link" to="/login" >Login</Link></li>
-                            <li><Link className="nav-item nav-link" to="/register">Register</Link>
-                            </li></>: <li><Link className="nav-item nav-link" to="/" onClick={handleLogout}>Logout</Link></li>}
-                        
+                        {!localStorage.getItem("token") 
+                            ?<><li><Link className="nav-item nav-link" to="/login" >Login</Link></li>
+                            <li><Link className="nav-item nav-link" to="/register">Register</Link></li></> 
+                            :<li className="dropdown">
+                                <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Dashboard</Link>
+                                <div className="dropdown-menu">
+                                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                                    <Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link>
+                                </div>
+                            </li>
+                            //:<li><Link className="nav-item nav-link" to="/" onClick={handleLogout}>Logout</Link></li>
+                        }
                     </ul>
                 </div>
             </div>

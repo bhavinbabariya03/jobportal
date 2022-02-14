@@ -8,6 +8,9 @@ app.use(cors());
 
 const port = 5000
 
+const bodyParser=require('body-parser');
+app.use(bodyParser.json({limit : "30mb", extended : true}));
+app.use(bodyParser.urlencoded({limit : "30mb", extended : true}));
 //use middleware for request.body
 app.use(express.json());
 
@@ -15,6 +18,9 @@ app.use(express.json());
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/jobprovider',require('./routes/jobprovider'))
 
+app.use('/api/jobseeker', require('./routes/jobseeker'));
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
