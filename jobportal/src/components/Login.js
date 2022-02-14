@@ -25,11 +25,14 @@ function Login(props) {
                 body: JSON.stringify({email: credentials.email, password: credentials.pass})
             });
         const json = await response.json()
+        // console.log(json);
         if(json.success)
         {
             localStorage.setItem('token',json.authtoken);
-            history.push('/home');
+            history.push('/jobprovider');
             props.showAlert("Login Successfully","success");
+            props.setUser(json.user)
+            localStorage.setItem("email",json.user.email)
         }
         else{
             seterror(json.error);
@@ -64,7 +67,7 @@ function Login(props) {
                                 </div>
                             </div>
                             <div className="form-group d-flex">
-                                {error.length!=0 && <ul>{error.map((e)=>{
+                                {error.length!==0 && <ul>{error.map((e)=>{
                                     return <li key={e.msg}>{e.msg}</li>
                                     })}
                                 </ul>

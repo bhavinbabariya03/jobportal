@@ -41,7 +41,7 @@ function Navbar() {
                             </div>
                         </li>
                         <li className="dropdown">
-                            <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Portfolio</Link>
+                            <Link to="/jobprovider/profile" className="nav-item nav-link" data-toggle="dropdown">Profile</Link>
                             <div className="dropdown-menu">
                                 <Link to="/" className="dropdown-item">Dropdown Item 1</Link>
                                 <Link to="/" className="dropdown-item">Dropdown Item 2</Link>
