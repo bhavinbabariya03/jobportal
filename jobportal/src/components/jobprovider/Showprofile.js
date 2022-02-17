@@ -23,12 +23,10 @@ function Showprofile(props) {
         }
     }
 
-   useEffect(()=>{
+    useEffect(()=>{
         getData();
-   }, []);
+    }, []);
    
-
-
     return <div>
         <div class="card mb-3" >
             <div class="card-body" style={{padding:"50px"}}>

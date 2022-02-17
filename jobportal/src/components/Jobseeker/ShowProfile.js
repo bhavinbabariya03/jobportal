@@ -25,7 +25,7 @@ function ShowProfile(props) {
         {
             props.profile.map((f)=>{
             return(
-            <div className="container emp-profile" key={f.user}>
+            <div className="container emp-profile" key={f._id}>
                 <form method="post">
                     <div className="row">
                         <div className="col-md-4">
@@ -41,8 +41,6 @@ function ShowProfile(props) {
                                 <h3>
                                     {f.bio}
                                 </h3>
-                                <br/>
-                                <br/>
                                 <br/>
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item">
@@ -157,6 +155,18 @@ function ShowProfile(props) {
                                         </div>
                                         <div className="col-md-6">
                                             <p>{f.englishlevel}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Resume</label>
+                                        </div>
+                                        <div className="resume col-md-6">
+                                            <p>
+                                                <a href={f.resume} target="_blank" rel="noreferrer noopener">
+                                                    Click Here
+                                                </a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

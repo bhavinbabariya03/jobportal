@@ -66,6 +66,9 @@ function UpdateProfile(props) {
                                     <input name="skills" className="form-control rounded-left" placeholder="Skills" value={updateprofile.skills} onChange={onChange} required/>
                                 </div>
                                 <div className="form-group">
+                                    <input name="resume" className="form-control rounded-left" placeholder="Resume Link" value={updateprofile.resume} onChange={onChange} required/>
+                                </div>
+                                <div className="form-group">
                                     <input name="experience" className="form-control rounded-left" placeholder="Experience(in years)" value={updateprofile.experience} onChange={onChange} required/>
                                 </div>
                                 <div className="form-group">

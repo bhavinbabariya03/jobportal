@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Loading from '../Loading';
 
 function CompleteProfile(props) {
 
-    const obj={email:"abcd@gmail.com",cname:"",contact:"",address:"",city:"",state:"",type:"",description:"",logo:"",website:"",instagram:"",facebook:""};
+    const obj={email:"",cname:"",contact:"",address:"",city:"",state:"",type:"",description:"",logo:"",website:"",instagram:"",facebook:""};
     const [profile, setprofile] = useState(obj);
     const [loading, setloading] = useState(false);
     const [msg, setmsg] = useState({show:false,text:""});
@@ -40,6 +40,23 @@ function CompleteProfile(props) {
         }, 2000);
     }
 
+    useEffect(async() => {
+        const response = await fetch("http://localhost:5000/api/jobprovider/getemail", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+				'auth-token' : localStorage.getItem('token')
+            }
+        });
+        const json = await response.json()
+
+        if(json.success)
+        {
+            setprofile({...profile, ["email"]: json.email})
+        }
+        
+    }, [])
+    
     return <div className="col-8">
         <div className="shadow-sm p-3 mb-5 bg-white rounded">
             <h2  style={{color:"blue",textAlign:"center"}}>
@@ -63,7 +80,7 @@ function CompleteProfile(props) {
                             <h3 className="mb-0 mx-4 mt-3" >Email *</h3>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                        <input type="email" name="email" className="form-control" disabled value={localStorage.getItem('email')}/>
+                        <input type="email" name="email" className="form-control" disabled value={profile.email}/>
                         </div>
                     </div>
                     <hr/>

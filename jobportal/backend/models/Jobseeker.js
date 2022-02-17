@@ -2,10 +2,10 @@ const mongoose=require('mongoose');
 const {Schema}=mongoose;
 
 const JobseekerSchema=new Schema({
-    user :{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
-    },
+    // user :{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'users'
+    // },
     email :{
         type: String,
         required: true
@@ -55,6 +55,10 @@ const JobseekerSchema=new Schema({
         required: true
     },
     state :{
+        type: String,
+        required: true
+    },
+    resume :{
         type: String,
         required: true
     },

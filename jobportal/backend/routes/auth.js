@@ -34,7 +34,7 @@ router.post('/',
     try{
         let user=await User.findOne({email:req.body.email});
         if(user){
-            return res.status(400).json({success:false,error:[],warning:"Sorry a user with this email exist"})
+            return res.status(400).json({success:false,error:["Sorry a user with this email exist"]})
         }
         //promise method-create a new user
         user = await User.create({
@@ -51,14 +51,9 @@ router.post('/',
         const authtoken=jwt.sign(data,JWT_SECRET);
         res.json({success:true,user : user,jwt:authtoken})
         }catch(error){
-            res.status(500).send({success:false,error:[],warning:"Some error occured"});
-
+            res.status(500).send({success:false,error:["Some error occured"]});
     }
     })
-
-
-
-
 
 
 //Route 2 : Login User request : http://localhost:5000/api/auth/login
@@ -92,9 +87,10 @@ router.post('/login',
 
         //generate jwt token
         const JWT_SECRET="bhavinauth";
+        //const data={user:{id:user.id}};
         const data={user};
         const authtoken=jwt.sign(data,JWT_SECRET);
-        res.json({success:true,user,authtoken:authtoken})
+        res.json({success:true,authtoken:authtoken,role:user.role})
         }catch(error){
             res.status(500).send({success:false,error:[],warning:"Some error occured"});
         }

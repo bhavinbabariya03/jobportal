@@ -3,7 +3,7 @@ import FileBase from 'react-file-base64';
 import '../Login.css';
 
 function CreateProfile(props) {
-    const [details, setdetails] = useState({firstName:"", lastName:"", bio:"", contact:"", collage:"", degree:"", skills:"", experience:"", language: "", englishlevel:"", city:"", state:"", profileimage:""});
+    const [details, setdetails] = useState({email:"", firstName:"", lastName:"", bio:"", contact:"", collage:"", degree:"", skills:"", experience:"", language: "", englishlevel:"", city:"", state:"", resume:"", profileimage:""});
     //const [error, seterror] = useState([]);
    
     const onChange=(e)=>{
@@ -21,7 +21,8 @@ function CreateProfile(props) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
                 },
-                body: JSON.stringify({firstName:details.firstName, lastName:details.lastName, bio:details.bio, contact:details.contact, collage:details.collage, degree:details.degree, skills:details.skills, experience:details.experience, language: details.language, englishlevel:details.englishlevel, city:details.city, state:details.state, profileimage:details.profileimage})
+                // body: JSON.stringify({firstName:details.firstName, lastName:details.lastName, bio:details.bio, contact:details.contact, collage:details.collage, degree:details.degree, skills:details.skills, experience:details.experience, language: details.language, englishlevel:details.englishlevel, city:details.city, state:details.state, resume:details.resume, profileimage:details.profileimage})
+                body: JSON.stringify(details)
             });
         const json = await response.json()
         if(json.success){
@@ -32,6 +33,23 @@ function CreateProfile(props) {
             alert('error!')
         }
     }
+
+    useEffect(async() => {
+        const response = await fetch("http://localhost:5000/api/jobseeker/getemail", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+				'auth-token' : localStorage.getItem('token')
+            }
+        });
+        const json = await response.json()
+
+        if(json.success)
+        {
+            setdetails({...details, ["email"]: json.email})
+        }
+        
+    }, [])
 
     return( 
     <>
@@ -63,6 +81,9 @@ function CreateProfile(props) {
                                 </div>
                                 <div className="form-group">
                                     <input name="skills" className="form-control rounded-left" placeholder="Skills" value={details.skills} onChange={onChange} required/>
+                                </div>
+                                <div className="form-group">
+                                    <input name="resume" className="form-control rounded-left" placeholder="Resume Link" value={details.resume} onChange={onChange} required/>
                                 </div>
                                 <div className="form-group">
                                     <input name="experience" className="form-control rounded-left" placeholder="Experience(in years)" value={details.experience} onChange={onChange} required/>

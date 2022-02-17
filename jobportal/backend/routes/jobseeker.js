@@ -8,32 +8,48 @@ const fetchuser = require('../middleware/fetchuser');
 //route for creating profile
 router.post('/', fetchuser,
     async(req,res)=>{
+        let obj=req.body;
         try{
-            let user = await Jobseeker.findOne({user: req.user.id});
-            const authdetails = await User.findById(req.user.id)
-            //console.log(req.user.id);
-            if(user){
-                return res.status(400).json({success:false,error:["Sorry a user with this email exist"]})
-            }
-            const {firstName,lastName,bio,contact,collage,degree,skills,experience,language,englishlevel,city,state,profileimage} = req.body;
-            const jobseeker = new Jobseeker({
-                firstName, lastName, bio, contact, collage, degree, skills, experience, language, englishlevel, city, state, profileimage, user : req.user.id, email : authdetails.email
-            })
+        //if exists then error
+        let data=await Jobseeker.findOne({email:obj.email});
+        if(data){
+            return res.status(400).json({success:false,error:"Sorry a user with this email exist"})
+        }
 
-            const saveJobseeker = await jobseeker.save();
-            res.json({success:true, saveJobseeker})
-        }
-        catch (error) {
-            console.error(error.message);
-            res.status(500).json("Internal Server Error!")
-        }
+        //promise method-create a new user
+        jobseekerdata = await Jobseeker.create(obj);
+        res.json({success:true,jobseekerdata})
+
+        }catch(error){
+            // console.log(error)
+            res.status(500).send({success:false,error:"Some error occured"});
+    }
+        // try{
+        //     let user = await Jobseeker.findOne({email:obj.email});
+        //     const authdetails = await User.findById(req.user.id)
+        //     //console.log(req.user.id);
+        //     if(user){
+        //         return res.status(400).json({success:false,error:["Sorry a user with this email exist"]})
+        //     }
+        //     const {firstName,lastName,bio,contact,collage,degree,skills,experience,language,englishlevel,city,state,profileimage,resume} = req.body;
+        //     const jobseeker = new Jobseeker({
+        //         firstName, lastName, bio, contact, collage, degree, skills, experience, language, englishlevel, city, state, profileimage, resume,user : req.user.id, email : authdetails.email
+        //     })
+
+        //     const saveJobseeker = await jobseeker.save();
+        //     res.json({success:true, saveJobseeker})
+        // }
+        // catch (error) {
+        //     console.error(error.message);
+        //     res.status(500).json("Internal Server Error!")
+        // }
     }
 )
 
 //route for fetching profile details
 router.get('/fetchdetails',fetchuser, async (req, res)=>{
     try{
-        const details = await Jobseeker.find({user: req.user.id})
+        const details = await Jobseeker.find({email:req.user.email})
         res.json(details)
     }
     catch(error){
@@ -42,9 +58,10 @@ router.get('/fetchdetails',fetchuser, async (req, res)=>{
     }
 })
 
-//route for updating profiler
+//route for updating profile
 router.put('/updatedetails/:id',fetchuser,async (req, res) => {
-    const {firstName,lastName,bio,contact,collage,degree,skills,experience,language,englishlevel,city,state,profileimage} = req.body;
+    const {firstName,lastName,bio,contact,collage,degree,skills,resume,experience,language,englishlevel,city,state,profileimage} = req.body;
+    
     //creating a updatedDetails object 
     const updatedDetails = {};
     if(firstName){updatedDetails.firstName = firstName};
@@ -54,6 +71,7 @@ router.put('/updatedetails/:id',fetchuser,async (req, res) => {
     if(collage){updatedDetails.collage = collage};
     if(degree){updatedDetails.degree = degree};
     if(skills){updatedDetails.skills = skills};
+    if(resume){updatedDetails.resume = resume};
     if(experience){updatedDetails.experience = experience};
     if(language){updatedDetails.language = language};
     if(englishlevel){updatedDetails.englishlevel = englishlevel};
@@ -65,12 +83,19 @@ router.put('/updatedetails/:id',fetchuser,async (req, res) => {
     let jobseeker = await Jobseeker.findById(req.params.id);
     if(!jobseeker){return res.status(404).send("Not Found")}
 
-    if(jobseeker.user.toString() !== req.user.id){
-        return res.status(401).send("Not Allowed")
-    }
-
     jobseeker = await Jobseeker.findByIdAndUpdate(req.params.id,{$set: updatedDetails},{new: true})
     res.json({success:true, jobseeker:jobseeker})
+})
+
+//Route 5 : Get User Email ID : http://localhost:5000/api/jobprovider/getemail
+router.post('/getemail',fetchuser,async (req,res)=>{
+    const user=await req.user;
+    //console.log(req)
+    try{
+        res.json({success:true,email:user.email})
+    }catch(error){
+        res.status(500).send({success:false,error:[],warning:"Some error occured"});
+    }
 })
 module.exports=router 
         

@@ -29,10 +29,12 @@ function Login(props) {
         if(json.success)
         {
             localStorage.setItem('token',json.authtoken);
-            history.push('/jobprovider');
+            if(json.role==="provider")
+                history.push('/jobprovider')
+            else
+                history.push('/profile');
             props.showAlert("Login Successfully","success");
             props.setUser(json.user)
-            localStorage.setItem("email",json.user.email)
         }
         else{
             seterror(json.error);

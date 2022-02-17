@@ -58,6 +58,7 @@ router.post('/getprofile/',fetchuser,async (req,res)=>{
     
     if(req.user.role!=="provider")
     {
+        //console.log("provider is called")
         res.status(403).send({success:false,error:"can't have permission"});
     }
 
@@ -98,5 +99,17 @@ router.post('/editprofile/',fetchuser,async (req,res)=>{
             res.status(500).send({success:false,error:"Some error occured"});
         }
     })
-module.exports=router 
 
+//Route 5 : Get User Email ID : http://localhost:5000/api/jobprovider/getemail
+router.post('/getemail',fetchuser,async (req,res)=>{
+    const user=await req.user;
+    console.log(req)
+    try
+    {
+        res.json({success:true,email:user.email})
+    }catch(error){
+        res.status(500).send({success:false,error:[],warning:"Some error occured"});
+    }
+})
+
+module.exports=router

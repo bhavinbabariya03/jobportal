@@ -4,7 +4,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
-import Profile from './components/Jobseeker/Profile';
+import JobseekerProfile from './components/Jobseeker/Profile';
 import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
@@ -31,16 +31,15 @@ function App() {
   return (
     <>
       <Navbar/>
-      <Router>
       <Alert alert={alert}/>
         <Switch>
           <Route exact path="/login" ><Login showAlert={showAlert} setUser={setUser}/></Route>
           <Route exact path="/register" ><Register showAlert={showAlert}/></Route>
           <Route exact path="/home"><Home/></Route>
+          <Route exact path="/profile" ><JobseekerProfile/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
         </Switch>
-      </Router>
     </>
     
   );

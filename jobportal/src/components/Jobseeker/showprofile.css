@@ -51,6 +51,7 @@ body{
 .profile-head .nav-tabs .nav-link{
     font-weight:500;
     border: none;
+    color: black;
 }
 .profile-head .nav-tabs .nav-link.active{
     border: none;
@@ -77,5 +78,9 @@ body{
 .profile-tab p{
     margin-top : 10px;
     font-weight: 500;
+    color: #0062cc;
+}
+
+.resume a{
     color: #0062cc;
 }
