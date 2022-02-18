@@ -1,5 +1,6 @@
 import { hasSelectionSupport } from '@testing-library/user-event/dist/utils';
 import React,{useState,useEffect} from 'react';
+import FileBase from 'react-file-base64';
 
 function Editprofile(props) {
 

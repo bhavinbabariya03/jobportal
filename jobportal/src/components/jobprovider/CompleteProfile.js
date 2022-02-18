@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import Loading from '../Loading';
+import FileBase from 'react-file-base64';
 
 function CompleteProfile(props) {
 
@@ -162,6 +163,15 @@ function CompleteProfile(props) {
                         </div>
                         <div className="col-sm-9 text-secondary">
                             <input type="text" name="facebook" className="form-control" onChange={onChange}/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <h3 className="mb-0 mx-4 mt-3" >Logo</h3>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                            <FileBase type="file" multiple={false} onDone={({ base64 }) => setprofile({ ...profile, logo: base64 })} />
                         </div>
                     </div>
                     <hr/>

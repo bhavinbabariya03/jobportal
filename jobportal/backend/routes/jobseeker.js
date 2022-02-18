@@ -34,7 +34,7 @@ router.get('/fetchdetails',fetchuser, async (req, res)=>{
         res.json(details)
     }
     catch(error){
-        console.error(error.message);
+        // console.error(error.message);
         res.status(500).json("Internal Server Error!")
     }
 })

@@ -103,7 +103,7 @@ router.post('/editprofile/',fetchuser,async (req,res)=>{
 //Route 5 : Get User Email ID : http://localhost:5000/api/jobprovider/getemail
 router.post('/getemail',fetchuser,async (req,res)=>{
     const user=await req.user;
-    console.log(req)
+    // console.log(req)
     try
     {
         res.json({success:true,email:user.email})

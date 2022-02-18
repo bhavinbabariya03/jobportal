@@ -6,7 +6,7 @@ import Editprofile from './Editprofile';
 function Profile() {
 
     const [mode, setmode] = useState("show");
-    const [data, setdata] = useState({cname:"",type:"",website:"",instagram:"",facebook:"",city:"",state:""});
+    const [data, setdata] = useState({logo:"",cname:"",type:"",website:"",instagram:"",facebook:"",city:"",state:""});
 
     const setData=(data)=>{
         setdata(data)
@@ -23,7 +23,7 @@ function Profile() {
               <div className="card">
                   <div className="card-body">
                       <div className="d-flex flex-column align-items-center text-center">
-                          <img src={logo} alt="Admin" className="rounded-circle" width="250"/>
+                          <img src={data.logo} alt="Admin" className="rounded-circle" width="250" height="250"/>
                           <div className="mt-3">
                               <h2>{data.cname}</h2>
                               <p className="text-secondary mb-1">{data.type}</p>

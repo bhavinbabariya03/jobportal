@@ -10,6 +10,10 @@ import Navbar from './components/Navbar';
 import Alert from './components/Alert';
 import JobproviderHome from './components/jobprovider/JobproviderHome';
 import Profile from './components/jobprovider/Profile';
+import Createjob from './components/job/Createjob';
+import Showjob from './components/job/Showjob';
+import Viewjob from './components/job/Viewjob';
+import Editjob from './components/job/Editjob';
 
 function App() {
 
@@ -42,6 +46,10 @@ function App() {
           <Route exact path="/jobseeker/profile" ><JobseekerProfile/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
+          <Route exact path="/job/"><Showjob/></Route>
+          <Route exact path="/job/create"><Createjob/></Route>
+          <Route exact path="/job/view"><Viewjob/></Route>
+          <Route exact path="/job/edit"><Editjob/></Route>
         </Switch>
     </>
     
