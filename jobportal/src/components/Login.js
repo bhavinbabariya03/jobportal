@@ -32,7 +32,7 @@ function Login(props) {
             if(json.role==="provider")
                 history.push('/jobprovider')
             else
-                history.push('/profile');
+                history.push('/jobseeker/profile');
             props.showAlert("Login Successfully","success");
             props.setUser(json.user)
         }

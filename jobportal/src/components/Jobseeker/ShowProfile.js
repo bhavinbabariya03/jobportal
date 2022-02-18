@@ -138,7 +138,7 @@ function ShowProfile(props) {
                                             <label>Job Experience</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>{f.experience}</p>
+                                            <p>{f.experience} years</p>
                                         </div>
                                     </div>
                                     <div className="row">

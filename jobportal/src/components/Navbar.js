@@ -17,18 +17,10 @@ function Navbar() {
     }
 
     let location = useLocation();
-  return <div>
-	  <header className="header-area overlay">
+    return <div>
         <nav className="navbar navbar-expand-md navbar-dark fixed-top">
             <div className="container">
                 <Link to="/" className="navbar-brand">Jobguru.com</Link>
-                
-                <button type="button" className="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
-                    <span className="menu-icon-bar"></span>
-                    <span className="menu-icon-bar"></span>
-                    <span className="menu-icon-bar"></span>
-                </button>
-                
                 <div id="main-nav" className="collapse navbar-collapse">
                     <ul className="navbar-nav ml-auto">
                         <li><Link to="/" className={`nav-item nav-link ${location.pathname==="/"? "active" : ""}`}>Home</Link></li>
@@ -41,16 +33,7 @@ function Navbar() {
                                 <Link to="/" className="dropdown-item">Dropdown Item 3</Link>
                             </div>
                         </li>
-                        <li className="dropdown">
-                            <Link to="/jobprovider/profile" className="nav-item nav-link" data-toggle="dropdown">Profile</Link>
-                            <div className="dropdown-menu">
-                                <Link to="/" className="dropdown-item">Dropdown Item 1</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 2</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 3</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 4</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 5</Link>
-                            </div>
-                        </li>
+                        <li><Link to="/jobprovider/profile" className={`nav-item nav-link ${location.pathname==="/jobprovider/profile"? "active" : ""}`}>Profile</Link></li>
 
                         {!localStorage.getItem("token") 
                             ?<><li><Link className="nav-item nav-link" to="/login" >Login</Link></li>
@@ -58,25 +41,16 @@ function Navbar() {
                             :<li className="dropdown">
                                 <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Dashboard</Link>
                                 <div className="dropdown-menu">
-                                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                                    <Link to="/jobseeker/profile" className="dropdown-item">Profile</Link>
                                     <Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link>
                                 </div>
                             </li>
-                            //:<li><Link className="nav-item nav-link" to="/" onClick={handleLogout}>Logout</Link></li>
                         }
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
-    {/* <div className="banner">
-            <div className="container">
-                <h1>Find Job with us </h1>
-                <p>we are providing a various job across country</p>
-                <Link to="/" className="button button-primary">Apply Now</Link>
-            </div>
-        </div> */}
-  </div>;
+    </div>;
 }
 
 export default Navbar;

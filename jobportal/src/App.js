@@ -31,12 +31,15 @@ function App() {
   return (
     <>
       <Navbar/>
+      <br/>
+      <br/>
       <Alert alert={alert}/>
         <Switch>
           <Route exact path="/login" ><Login showAlert={showAlert} setUser={setUser}/></Route>
           <Route exact path="/register" ><Register showAlert={showAlert}/></Route>
-          <Route exact path="/home"><Home/></Route>
-          <Route exact path="/profile" ><JobseekerProfile/></Route>
+          <Route exact path="/"><Home/></Route>
+          <Route exact path="/about"><About/></Route>
+          <Route exact path="/jobseeker/profile" ><JobseekerProfile/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
         </Switch>

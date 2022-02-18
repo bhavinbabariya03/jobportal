@@ -23,26 +23,7 @@ router.post('/', fetchuser,
         }catch(error){
             // console.log(error)
             res.status(500).send({success:false,error:"Some error occured"});
-    }
-        // try{
-        //     let user = await Jobseeker.findOne({email:obj.email});
-        //     const authdetails = await User.findById(req.user.id)
-        //     //console.log(req.user.id);
-        //     if(user){
-        //         return res.status(400).json({success:false,error:["Sorry a user with this email exist"]})
-        //     }
-        //     const {firstName,lastName,bio,contact,collage,degree,skills,experience,language,englishlevel,city,state,profileimage,resume} = req.body;
-        //     const jobseeker = new Jobseeker({
-        //         firstName, lastName, bio, contact, collage, degree, skills, experience, language, englishlevel, city, state, profileimage, resume,user : req.user.id, email : authdetails.email
-        //     })
-
-        //     const saveJobseeker = await jobseeker.save();
-        //     res.json({success:true, saveJobseeker})
-        // }
-        // catch (error) {
-        //     console.error(error.message);
-        //     res.status(500).json("Internal Server Error!")
-        // }
+        }
     }
 )
 

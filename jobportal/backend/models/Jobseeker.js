@@ -39,7 +39,7 @@ const JobseekerSchema=new Schema({
         required: true
     },
     experience :{
-        type: String,
+        type: Number,
         required: true
     },
     language :{

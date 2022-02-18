@@ -53,66 +53,160 @@ function CreateProfile(props) {
 
     return( 
     <>
-    <div>
-        <section className="ftco-section">
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-6 col-lg-5">
-                        <div className="login-wrap p-4 p-md-5">
-                            <h3 className="text-center mb-4">Create Profile</h3>
-                            <form className="login-form">
-                                <div className="form-group">
-                                    <input name="firstName" className="form-control rounded-left" placeholder="First Name" value={details.firstName} onChange={onChange} required/>
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+            <div className="col-9 mt-5">
+                <div className="shadow-sm p-3 mb-5 bg-white rounded">
+                    <h2 style={{color:"#0062cc",textAlign:"center"}}>
+                        Please Complete Your Profile!!
+                    </h2>
+                </div>
+                <div className="card mb-3">
+                    <div className="card-body" style={{padding:"20px"}}>
+                        <form onSubmit={createProfile}>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >First Name *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="lastName" className="form-control rounded-left" placeholder="Last Name" value={details.lastName} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <input type="text" name="firstName" required className="form-control border" value={details.firstName} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <textarea name="bio" className="form-control rounded-left" placeholder="Bio" value={details.bio} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Last Name *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="contact" className="form-control rounded-left" placeholder="Contact" value={details.contact} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <input type="text" name="lastName" required className="form-control border" value={details.lastName} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input name="collage" className="form-control rounded-left" placeholder="Collage Name" value={details.collage} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Describe Yourself *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="degree" className="form-control rounded-left" placeholder="Degree" value={details.degree} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <textarea name="bio" required className="form-control border" value={details.bio} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input name="skills" className="form-control rounded-left" placeholder="Skills" value={details.skills} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Phone *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="resume" className="form-control rounded-left" placeholder="Resume Link" value={details.resume} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <input type="text" name="contact" required className="form-control border" value={details.contact} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input name="experience" className="form-control rounded-left" placeholder="Experience(in years)" value={details.experience} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Collage *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="language" className="form-control rounded-left" placeholder="Languages you know" value={details.language} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <input type="text" name="collage" required className="form-control border" value={details.collage} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input name="englishlevel" className="form-control rounded-left" placeholder="English Level" value={details.englishlevel} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Degree *</h3>
                                 </div>
-                                <div className="form-group">
-                                    <input name="city" className="form-control rounded-left" placeholder="City" value={details.city} onChange={onChange} required/>
+                                <div className="col-sm-9">
+                                    <input type="text" name="degree" required className="form-control border" value={details.degree} onChange={onChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input name="state" className="form-control rounded-left" placeholder="State" value={details.state} onChange={onChange} required/>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Skills *</h3>
                                 </div>
-                                <div className="form-group">
+                                <div className="col-sm-9">
+                                    <input type="text" name="skills" required className="form-control border" value={details.skills} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Resume *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="text" name="resume" required className="form-control" value={details.resume} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Experience *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="number" min="0" max="35" name="experience" required className="form-control" value={details.experience} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Languages *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="text" name="language" required className="form-control" value={details.language} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >English Level *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="text" name="englishlevel" required className="form-control" value={details.englishlevel} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >City *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="text" name="city" required className="form-control" value={details.city} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >State *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
+                                    <input type="text" name="state" required className="form-control" value={details.state} onChange={onChange}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <h3 className="mb-0 mx-4 mt-3" >Profile Image *</h3>
+                                </div>
+                                <div className="col-sm-9 text-secondary">
                                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setdetails({ ...details, profileimage: base64 })} />
                                 </div>
-                                 <div className="form-group text-center mt-5">
-                                    <button type="submit" className="btn btn-primary rounded p-3 px-5" onClick={createProfile}>Create Profile</button>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <button className="btn btn-info mx-3">Save Profile</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                        {/* {loading && <Loading/>}
+                        {
+                            msg.show && <div className="shadow-sm p-3 mb-5 bg-white rounded">
+                                <h2  style={{color:"red",textAlign:"center"}}>
+                                    {msg.text}
+                                </h2>
+                            </div>
+                        } */}
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
     </>
     )
 }

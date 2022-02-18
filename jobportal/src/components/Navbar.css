@@ -8,16 +8,16 @@ body {
   font-size: 1.6rem;
   font-weight: 400;
 }
-h1 {
+/* h1 {
   margin-bottom: 0.5em;
   font-size: 3.6rem;
-}
+} */
 p {
   margin-bottom: 0.5em;
   font-size: 1.6rem;
   line-height: 1.6;
 }
-.button {
+/* .button {
   display: inline-block;
   margin-top: 20px;
   padding: 8px 25px;
@@ -57,7 +57,7 @@ p {
   -webkit-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
-}
+} */
 .overlay::after {
   content: '';
   position: absolute;
@@ -76,7 +76,7 @@ p {
   background-repeat: no-repear;
   background-size: cover;
 }
-.banner {
+/* .banner {
   display: flex;
   align-items: center;
   position: relative;
@@ -90,7 +90,7 @@ p {
 }
 .banner p {
   font-weight: 700;
-}
+} */
 .navbar {
   position: absolute;
   left: 0;

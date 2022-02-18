@@ -21,7 +21,9 @@ function Profile() {
             }
         });
         const json=await respose.json()
-        //console.log(json)
+        if(json.length == 0){
+            setmode('create')
+        }
         setprofile(json)
     }
 
@@ -35,7 +37,6 @@ function Profile() {
 
     return( 
     <div>
-        {/* {mode=="create" ? <EditFood food={editfood} seteditfood={seteditfood} changemode={changemode}/> : ""}  */}
         {mode=="update" ? <UpdateProfile profile={profile} changemode={changemode}/>: ""}
         {mode=="create" ? <CreateProfile changemode={changemode}/>: ""}
         {mode=="show" ? <ShowProfile profile={profile} setprofile={setprofile} showProfile={showProfile} handleUpdate={handleUpdate}/> : ""}
