@@ -5,8 +5,6 @@ const Job=require('../models/Job');
 const Jobprovider=require('../models/Jobprovider');
 const sendMail=require('../sendMail');
 
-
-
 //Route 1 : Create Job  : http://localhost:5000/api/job/createjob
 
 router.post('/createjob',fetchuser,async (req,res)=>{
@@ -19,6 +17,21 @@ router.post('/createjob',fetchuser,async (req,res)=>{
         const savedJob = await Job.create({
             title,role,type,hrname,skill,description,expfrom,expto,postedby:jobprovider.id
         });
+        
+        const req_skills=savedJob.skill.split(',');
+
+        let arr=[];
+        req_skills.forEach((skill)=>{
+            arr.push({"skills": { $regex: new RegExp(skill, "i") }});
+        })
+
+        //find eligible jobseeker job for required skills
+        let eligible=await Jobseeker.find({"$and": arr},{"email":1});
+
+        //send mail to all eligible jobseeker
+        eligible.forEach((obj)=>{
+            sendMail(obj.email,subject,html);
+        })
         
         res.json({success:true,job:savedJob})
         }catch(error){
@@ -47,7 +60,8 @@ router.put('/editjob/:id',fetchuser,async (req,res)=>{
         let job = await Job.findById(req.params.id);
         if (!job) { return res.status(404).send("Not Found") }
 
-        if (job.postedby.toString() !== req.user._id) {
+        let jobprovider=await Jobprovider.findOne({email:req.user.email});
+        if (job.postedby.toString() !== jobprovider.id) {
             return res.status(401).send("Not Allowed");
         }
         job = await Job.findByIdAndUpdate(req.params.id, { $set: newJob }, { new: true })
@@ -67,8 +81,9 @@ router.delete('/deletejob/:id', fetchuser, async (req, res) => {
         let job = await Job.findById(req.params.id);
         if (!job) { return res.status(404).send("Not Found") }
 
+        let jobprovider=await Jobprovider.findOne({email:req.user.email});
         // Allow deletion only if user owns this Note
-        if (job.postedby.toString() !== req.user._id) {
+        if (job.postedby.toString() !== jobprovider.id) {
             return res.status(401).send("Not Allowed");
         }
 
@@ -104,7 +119,7 @@ router.get('/getalljob/',fetchuser,async (req,res)=>{
         }
     })
 
-//Route 5 : Get User Email ID : http://localhost:5000/api/job/getemail
+//Route 6 : Get User Email ID : http://localhost:5000/api/job/getemail
 router.post('/getemail',fetchuser,async (req,res)=>{
 
     const user=await req.user;

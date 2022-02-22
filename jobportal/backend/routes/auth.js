@@ -7,7 +7,8 @@ const User=require('../models/User');
 const { body, validationResult } = require('express-validator');
 const sendMail=require('../sendMail');
 
-
+let subject="Congratilations !! Your Registartion is complete";
+let html=`<h2>For More Job Login </h2><p><a href="http://localhost:3000/login">Login Now</a></p>`;
 
 //Route 1 : Create User request : http://localhost:5000/api/auth/
 
@@ -34,7 +35,7 @@ router.post('/',
     try{
         let user=await User.findOne({email:req.body.email});
         if(user){
-            return res.status(400).json({success:false,error:["Sorry a user with this email exist"]})
+            return res.status(400).json({success:false,error:[],warning:"Sorry a user with this email already exist"})
         }
         //promise method-create a new user
         user = await User.create({
@@ -44,16 +45,17 @@ router.post('/',
             role:req.body.role
         })
         
-        // sendMail("bhavinbabariya03@gmail.com");
+
+        sendMail(user.email,subject,html);
         //generate jwt token
         const JWT_SECRET="bhavinauth";
         const data={user:{id:user.id}};
         const authtoken=jwt.sign(data,JWT_SECRET);
         res.json({success:true,user : user,jwt:authtoken})
         }catch(error){
-            res.status(500).send({success:false,error:["Some error occured"]});
+            res.status(500).send({success:false,error:[],warning : "Some error occured"});
     }
-    })
+})
 
 
 //Route 2 : Login User request : http://localhost:5000/api/auth/login
@@ -94,7 +96,7 @@ router.post('/login',
         }catch(error){
             res.status(500).send({success:false,error:[],warning:"Some error occured"});
         }
-    })
+})
 
 //Route 3 : get User  request : http://localhost:5000/api/auth/getuser
 //     router.post('/getuser',fetchUser,async (req,res)=>{

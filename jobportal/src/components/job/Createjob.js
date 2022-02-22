@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
+import Editorbox from "./Editorbox";
 
 function Createjob(props) {
 
@@ -95,7 +96,8 @@ return <div className="container" >
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        <textarea type="text" className="form-control" required name="description" value={jobdata.description} onChange={onChange}/>
+                        {/* <textarea type="text" className="form-control" required name="description" value={jobdata.description} onChange={onChange}/> */}
+                        <Editorbox name="description" setData={setjobdata} data={jobdata}/>
                     </div>
                 </div>
                 <hr/>

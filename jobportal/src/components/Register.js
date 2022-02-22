@@ -36,8 +36,11 @@ function Register(props) {
                 history.push('/login');
                 props.showAlert("Registered Successfully","success");
             }
-            else{
+            else
+            {
                 seterror(json.error);
+                if(json.warning)
+                    props.showAlert(json.warning,"danger");
             }
         }
         

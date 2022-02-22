@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import {useLocation,useHistory} from 'react-router-dom'
+import Editorbox from './Editorbox';
 
 function Editjob() {
 
@@ -104,7 +105,8 @@ return <div className="container" >
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        <textarea type="text" className="form-control" required name="description" value={editjob.description} onChange={onChange}/>
+                        {/* <textarea type="text" className="form-control" required name="description" value={editjob.description} onChange={onChange}/> */}
+                        <Editorbox name="description" setData={seteditjob} data={editjob}/>
                     </div>
                 </div>
                 <hr/>

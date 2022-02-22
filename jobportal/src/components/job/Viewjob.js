@@ -43,26 +43,20 @@ function Viewjob() {
         }
     }
 return (
-<div className='container mt-5'>
+<div className='container mt-5' style={{color:"black"}}>
     <div className="row mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" >
         <div style={{padding:"25px"}}>
             <h2 style={{fontSize:"25px"}}>1. {job.title}</h2><br/>
             <p className='mt-3'><b>Type :</b> {job.type}</p>
             <p><b>Role :</b>  {job.role}</p>
             <p><b>HR Name:</b>  {job.hrname}</p>
-            <p><b>Posted Date : </b><span>{job.postdate}</span></p>
-            <p><b>Description : </b></p>
-            {/* {job.description} */}
-
-            {
-                arr.map((ele)=>{
-                    console.log(ele)
-                    return <p>{ele}</p>
-                })
-            }
             
             <p><b>Skills : </b>{job.skill}</p>
-            <p><b>Experience  : </b>{job.expfrom} To {job.expto} years</p>
+            <p><b>Experience  : </b>{job.expfrom} to {job.expto} years</p>
+            <p><b>Description : </b></p>
+            <div className='border' style={{padding:"20px"}} dangerouslySetInnerHTML={{ __html: job.description}} />
+            <br/>
+            <p><b>Posted Date : </b><span>{job.postdate}</span></p>
         </div>
         <div className='mt-2 mb-4'>
                 <button className='btn btn-secondary' style={{width:"65px"}} onClick={handleEdit}>Edit</button>
