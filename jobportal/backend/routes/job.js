@@ -2,6 +2,7 @@ const express= require('express');
 const fetchuser=require('../middleware/fetchuser')
 const router=express.Router();
 const Job=require('../models/Job');
+const Jobprovider=require('../models/Jobprovider');
 const sendMail=require('../sendMail');
 
 
@@ -14,13 +15,13 @@ router.post('/createjob',fetchuser,async (req,res)=>{
      
     try{
         // promise method-create a new user
+        let jobprovider=await Jobprovider.findOne({email:req.user.email});
         const savedJob = await Job.create({
-            title,role,type,hrname,skill,description,expfrom,expto,postedby:req.user._id
+            title,role,type,hrname,skill,description,expfrom,expto,postedby:jobprovider.id
         });
         
         res.json({success:true,job:savedJob})
         }catch(error){
-            // console.log(error)
             res.status(500).send({success:false,error:"Some error occured"});
     }
 })
@@ -84,7 +85,8 @@ router.delete('/deletejob/:id', fetchuser, async (req, res) => {
 router.get('/getjob/',fetchuser,async (req,res)=>{
     
     try{
-        let data=await Job.find({postedby:req.user._id});
+        let jobprovider=await Jobprovider.findOne({email:req.user.email});
+        let data=await Job.find({postedby:jobprovider.id});
         res.json({success:true,data});
         }catch(error){
             res.status(500).send({success:false,error:"Some error occured"});

@@ -25,10 +25,11 @@ function Login(props) {
                 body: JSON.stringify({email: credentials.email, password: credentials.pass})
             });
         const json = await response.json()
-        // console.log(json);
+
         if(json.success)
         {
             localStorage.setItem('token',json.authtoken);
+            localStorage.setItem('username',json.name);
             if(json.role==="provider")
                 history.push('/jobprovider')
             else

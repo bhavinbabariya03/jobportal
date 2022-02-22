@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import { useHistory, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 function Navbar() {
@@ -17,6 +19,7 @@ function Navbar() {
     }
 
     let location = useLocation();
+    
     return <div>
         <nav className="navbar navbar-expand-md navbar-dark fixed-top">
             <div className="container">
@@ -39,7 +42,7 @@ function Navbar() {
                             ?<><li><Link className="nav-item nav-link" to="/login" >Login</Link></li>
                             <li><Link className="nav-item nav-link" to="/register">Register</Link></li></> 
                             :<li className="dropdown">
-                                <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Dashboard</Link>
+                                <Link to="/" className="nav-item nav-link" data-toggle="dropdown"><FontAwesomeIcon icon={faUser}/>&nbsp;&nbsp;{localStorage.getItem("username")} </Link>
                                 <div className="dropdown-menu">
                                     <Link to="/jobseeker/profile" className="dropdown-item">Profile</Link>
                                     <Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link>

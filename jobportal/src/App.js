@@ -5,6 +5,7 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import JobseekerProfile from './components/Jobseeker/Profile';
+import ViewFullJob from './components/Jobseeker/ViewFullJob';
 import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
@@ -44,6 +45,7 @@ function App() {
           <Route exact path="/"><Home/></Route>
           <Route exact path="/about"><About/></Route>
           <Route exact path="/jobseeker/profile" ><JobseekerProfile/></Route>
+          <Route exact path="/jobseeker/job/view"><ViewFullJob/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
           <Route exact path="/job/"><Showjob/></Route>

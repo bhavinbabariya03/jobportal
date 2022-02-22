@@ -174,7 +174,7 @@ p {
 }
 .navbar .dropdown-menu .dropdown-item:hover {
   background: transparent;
-  color: #c0ca33;
+  color: #8dc9db;
 }
 .navbar .dropdown-menu .dropdown-item::before {
   content: '';
@@ -183,7 +183,7 @@ p {
   left: 0;
   top: 0;
   width: 5px;
-  background-color: #c0ca33;
+  background-color: #8dc9db;
   opacity: 0;
   transition: opacity 0.2s ease-in;
 }
@@ -197,10 +197,10 @@ p {
   background-color: rgba(0, 0, 0, .9);
 }
 .navbar.fixed-top.navbar-dark .navbar-nav .nav-link.active {
-  color: #c0ca33;
+  color: #8dc9db;
 }
 .navbar.fixed-top.navbar-dark .navbar-nav .nav-link::after {
-  background-color: #c0ca33;
+  background-color: #8dc9db;
 }
 .content {
   padding: 120px 0;

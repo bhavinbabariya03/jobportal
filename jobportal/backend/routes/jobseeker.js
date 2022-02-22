@@ -1,7 +1,10 @@
 const express= require('express');
 const router=express.Router();
 const Jobseeker=require('../models/Jobseeker');
+const Jobprovider=require('../models/Jobprovider');
 const User=require('../models/User');
+const Job=require('../models/Job');
+const Application=require('../models/Application');
 const { body, validationResult } = require('express-validator');
 const fetchuser = require('../middleware/fetchuser');
 
@@ -68,7 +71,8 @@ router.put('/updatedetails/:id',fetchuser,async (req, res) => {
     res.json({success:true, jobseeker:jobseeker})
 })
 
-//Route 5 : Get User Email ID : http://localhost:5000/api/jobprovider/getemail
+//Get User Email ID
+//http://localhost:5000/api/jobprovider/getemail
 router.post('/getemail',fetchuser,async (req,res)=>{
     const user=await req.user;
     //console.log(req)
@@ -78,6 +82,100 @@ router.post('/getemail',fetchuser,async (req,res)=>{
         res.status(500).send({success:false,error:[],warning:"Some error occured"});
     }
 })
+
+//show jobs based on skills and experience to jobseeker
+//http://localhost:5000/api/jobseeker/getjob
+router.get('/getjob/',fetchuser,async (req,res)=>{
+    try{
+        let jobseeker = await Jobseeker.findOne({email:req.user.email});
+        let data=await Job.find({expfrom: {$lte : jobseeker.experience}});
+
+        //skill based filtering
+        var skilljobarr = [];
+        var jobseekerskills;
+
+        //converting jobseeker-skills string to lowercase
+        let seekerskills = jobseeker.skills.toLowerCase();
+        //removing all whitespaces from jobseeker-skills string
+        seekerskills = seekerskills.replace(/\s/g,'')
+        //split the jobseeker-skills string from ","
+        jobseekerskills = seekerskills.split(",");
+        let jobs=await Job.find();
+        var jobskills;
+        let p=0;
+        for(let i=0; i<jobs.length; i++){
+            let count=0;
+            //converting required-skill string to lowercase
+            let requiredskills = jobs[i].skill.toLowerCase();
+            //removing all whitespaces from required-skill string
+            requiredskills = requiredskills.replace(/\s/g,'')
+            //split the requiredskills string from ","
+            jobskills = requiredskills.split(",");
+            for(let j=0; j<jobskills.length; j++){
+                for(let k=0; k<jobseekerskills.length; k++){
+                    if(jobskills[j]==jobseekerskills[k]){
+                        count++;
+                        break;
+                    }
+                }
+            }
+            if(count==jobskills.length){
+                skilljobarr[p] = jobs[i];
+                p++;
+            }
+        }
+
+        //experience based filtering
+        var expjobarr = []
+        for(let i=0; i<data.length; i++){
+            let jobprovider=await Jobprovider.findById(data[i].postedby);
+            obj={};
+            obj.job = data[i];
+            obj.jobprovider = jobprovider;
+            expjobarr[i] = obj
+        }
+        
+        //intersection of skill based filtering and experience based filtering
+        var jobarr = []
+        p=0;
+        for(let i=0; i<skilljobarr.length; i++){
+            for(let j=0; j<expjobarr.length; j++){
+                if(skilljobarr[i].id==expjobarr[j].job.id){
+                    jobarr[p] = expjobarr[j];
+                    p++;
+                }
+            }
+        }
+        res.json({success:true,jobarr});
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
+
+//apply for the job
+//http://localhost:5000/api/jobseeker/applyforjob
+router.get('/applyforjob/:id', fetchuser,
+    async(req,res)=>{
+        try{
+        //check whether jobseeker have already applied for that job or not
+        let jobseeker = await Jobseeker.findOne({email:req.user.email});
+        let applicationdata=await Application.findOne({jobId:req.params.id, jobseekerId:jobseeker.id});
+        if(applicationdata){
+            return res.status(400).json({success:false,error:"You have already applied for this job!!"})
+        }
+
+        //otherwise store the data into database
+        application = await Application.create({
+            jobId : req.params.id,
+            jobseekerId : jobseeker.id
+        });
+        res.json({success:true})
+        }catch(error){
+            res.status(500).send({success:false,error:"Some error occured"});
+        }
+    }
+)
+
 module.exports=router 
         
 
