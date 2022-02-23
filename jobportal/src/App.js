@@ -15,6 +15,9 @@ import Createjob from './components/job/Createjob';
 import Showjob from './components/job/Showjob';
 import Viewjob from './components/job/Viewjob';
 import Editjob from './components/job/Editjob';
+import Application from './components/jobprovider/Application';
+import Showprofile from './components/jobprovider/Showprofile';
+import Viewprofile from './components/Application/Viewprofile';
 
 function App() {
 
@@ -34,7 +37,7 @@ function App() {
     setuser(u);
   }
   return (
-    <>
+    <div style={{backgroundColor:"#EEEEEE"}}>
       <Navbar/>
       <br/>
       <br/>
@@ -48,12 +51,14 @@ function App() {
           <Route exact path="/jobseeker/job/view"><ViewFullJob/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
+          <Route exact path="/jobprovider/application/"><Application/></Route>
           <Route exact path="/job/"><Showjob/></Route>
           <Route exact path="/job/create"><Createjob/></Route>
           <Route exact path="/job/view"><Viewjob/></Route>
           <Route exact path="/job/edit"><Editjob/></Route>
+          <Route exact path="/jobseeker/profile/view/:id"><Viewprofile/></Route>
         </Switch>
-    </>
+    </div>
     
   );
 }

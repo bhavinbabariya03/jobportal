@@ -176,6 +176,26 @@ router.get('/applyforjob/:id', fetchuser,
     }
 )
 
+//Routes for getting profile by link
+//Used to show profile in application to jobprovider
+
+//Route : POST : http://localhost:5000/api/jobseeker/profile/:id
+
+router.post('/profile/:id', fetchuser,async(req,res)=>{
+
+    try{
+        let jobseeker = await Jobseeker.findById(req.params.id);
+        
+        if(!jobseeker)
+        {
+            return res.status(404).json({success:false,error:"User profile not found"})
+        }
+        res.json({success:true,data:jobseeker})
+
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
 module.exports=router 
         
 
