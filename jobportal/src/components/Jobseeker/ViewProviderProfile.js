@@ -30,7 +30,11 @@ function ViewProviderProfile() {
     }, [])
 
     return (
+        
         <div className="container">
+            {
+                (!data.logo) && <Loading/> 
+            }
             <div className="main-body">
                 <br />
                 <div className="row gutters-sm">

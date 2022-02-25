@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from "react";
 import verify from './verify.jpg'
 import CompleteProfile from "./CompleteProfile";
-
+import Loading from "../Loading";
+import ShowJob from "./../job/Showjob";
 function JobproviderHome() {
-	const [mode, setmode] = useState("incomplete");
+	const [mode, setmode] = useState("");
 
 	const changeMode=(mode)=>{
 		setmode(mode);
@@ -35,16 +36,22 @@ function JobproviderHome() {
 			</button> */}
 			<div className="row">
 				{
-					(mode==="incomplete") ? <CompleteProfile changeMode={changeMode}/> :<div className="shadow-sm p-3 mb-5 bg-white rounded">
-					<h2  style={{color:"green",textAlign:"center"}}>
-						Your Profile is Complete &nbsp;&nbsp;<img src={verify} style={{width:"50px",height:"50px"}}></img>			
-					</h2>
-			  </div>
+					(mode==="") && <Loading/>
 				}
-			</div>
-
-			<div className="container">
-				Your ALl Jobs here
+				{
+					(mode==="incomplete") && <CompleteProfile changeMode={changeMode}/> 
+				}
+				{
+					(mode==="complete") && <><div className="shadow-sm p-3 mb-5 bg-white rounded">
+						<h2  style={{color:"green",textAlign:"center"}}>
+							Your Profile is Complete &nbsp;&nbsp;<img src={verify} style={{width:"50px",height:"50px"}}></img>			
+						</h2>
+					</div>
+					<div >
+					Your All Jobs here
+					<ShowJob/>
+				</div></>
+				}
 			</div>
 		</div>
 	);

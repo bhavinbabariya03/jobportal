@@ -70,7 +70,7 @@ function ApplicationStatus() {
                                         <td>{obj.jobprovider.cname}</td>
                                         <td>{obj.job.title}</td>
                                         <td>{getdate(obj.application.applicationdate)}</td>
-                                        <td>{checkApplicationStatus(obj.application)}</td>
+                                        <td style={{color:(obj.application.rejected===1) ? "red" : ((obj.application.hired===1) ? "green" : "blue")}}>{checkApplicationStatus(obj.application)}</td>
                                     </tr>
                                 )
                             })

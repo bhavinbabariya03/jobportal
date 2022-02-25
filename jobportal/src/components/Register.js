@@ -98,7 +98,7 @@ function Register(props) {
     //   </div>;
     
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div className="col-7" style={{ marginTop: '40px' }}>
+        <div className="col-5" style={{ marginTop: '40px' }}>
             <div className="shadow-lg p-3 mb-5 bg-white rounded">
                 <h2 style={{ color: "#0062cc", textAlign: "center" }}>
                     Register Yourself

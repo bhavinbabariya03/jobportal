@@ -1,7 +1,7 @@
 const express= require('express');
 const bcrypt=require('bcryptjs');
 var jwt=require('jsonwebtoken');
-// const fetchUser=require('../middleware/fetchUser')
+const fetchUser=require('../middleware/fetchUser')
 const router=express.Router();
 const User=require('../models/User');
 const { body, validationResult } = require('express-validator');
@@ -98,19 +98,14 @@ router.post('/login',
         }
 })
 
-//Route 3 : get User  request : http://localhost:5000/api/auth/getuser
-//     router.post('/getuser',fetchUser,async (req,res)=>{
-//     try {
-//         const userId=req.user.id;
-//         const user=await User.findById(userId).select("-password");
-//         res.json(user);
+// Route 3 : get User  request : http://localhost:5000/api/auth/getuser
+router.post('/getuser',fetchUser,async (req,res)=>{
+    try {
+        res.json({success:true,role:req.user.role});
 
-//     } catch (error) {
-//         res.status(500).send("Internal Server Error");
-//     }
-// })
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+})
 
 module.exports=router 
-
-//  const user=User(req.body);
-//  user.save();

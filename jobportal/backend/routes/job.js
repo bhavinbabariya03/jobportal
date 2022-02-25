@@ -18,19 +18,19 @@ router.post('/createjob',fetchuser,async (req,res)=>{
             title,role,type,hrname,skill,description,expfrom,expto,cname:jobprovider.cname,city:jobprovider.city,state:jobprovider.state,postedby:jobprovider.id
         });
         
-        //const req_skills=savedJob.skill.split(',');
-        // let arr=[];
-        // req_skills.forEach((skill)=>{
-        //     arr.push({"skills": { $regex: new RegExp(skill, "i") }});
-        // })
+        const req_skills=savedJob.skill.split(',');
+        let arr=[];
+        req_skills.forEach((skill)=>{
+            arr.push({"skills": { $regex: new RegExp(skill, "i") }});
+        })
 
-        // //find eligible jobseeker job for required skills
-        // let eligible=await Jobseeker.find({"$and": arr},{"email":1});
+        //find eligible jobseeker job for required skills
+        let eligible=await Jobseeker.find({"$and": arr},{"email":1});
 
-        // //send mail to all eligible jobseeker
-        // eligible.forEach((obj)=>{
-        //     sendMail(obj.email,subject,html);
-        // })
+        //send mail to all eligible jobseeker
+        eligible.forEach((obj)=>{
+            sendMail(obj.email,subject,html);
+        })
         
         res.json({success:true,job:savedJob})
         }catch(error){

@@ -16,7 +16,7 @@ function Login(props) {
 
     const LoginNow = async (e) => {
         e.preventDefault();
-        console.log({ email: credentials.email, password: credentials.pass })
+        
         const response = await fetch("http://localhost:5000/api/auth/login", {
             method: 'POST',
             headers: {
@@ -34,6 +34,7 @@ function Login(props) {
             else
                 history.push('/jobseeker/profile');
             props.showAlert("Login Successfully", "success");
+            props.setrole(json.role)
             props.setUser(json.user)
         }
         else {
@@ -88,7 +89,7 @@ function Login(props) {
 
     return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div className="col-6" style={{marginTop: '60px'}}>
+        <div className="col-5" style={{marginTop: '60px'}}>
             <div className="shadow-lg p-3 mb-5 bg-white rounded">
                 <h2 style={{ color: "#0062cc", textAlign: "center" }}>
                     Login

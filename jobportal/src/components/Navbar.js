@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
-function Navbar() {
+function Navbar(props) {
     const [temp, settemp] = useState(0);
     let history=useHistory();
 
@@ -14,7 +14,8 @@ function Navbar() {
         e.preventDefault();
         localStorage.removeItem("token");
         temp===1 ? settemp(0) : settemp(1);
-        console.log(temp);
+        // console.log(temp);
+        props.setrole("")
         history.push("/");
     }
 
@@ -28,15 +29,19 @@ function Navbar() {
                     <ul className="navbar-nav ml-auto">
                         <li><Link to="/" className={`nav-item nav-link ${location.pathname==="/"? "active" : ""}`}>Home</Link></li>
                         <li><Link to="/about" className={`nav-item nav-link ${location.pathname==="/about"? "active" : ""}`}>About Us</Link></li>
-                        <li className="dropdown">
-                            <Link to="/" className="nav-item nav-link" data-toggle="dropdown">Services</Link>
-                            <div className="dropdown-menu">
-                                <Link to="/" className="dropdown-item">Dropdown Item 1</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 2</Link>
-                                <Link to="/" className="dropdown-item">Dropdown Item 3</Link>
-                            </div>
-                        </li>
-                        <li><Link to="/jobseeker/applicationstatus" className={`nav-item nav-link ${location.pathname==="/jobseeker/applicationstatus"? "active" : ""}`}>Profile</Link></li>
+                        
+                        {
+                            (props.role=="provider") && <li className="dropdown">
+                                                            <Link to="/job" className="nav-item nav-link" data-toggle="dropdown">Jobs</Link>
+                                                            <div className="dropdown-menu">
+                                                                <Link to="/job/create" className="dropdown-item">Create Job</Link>
+                                                                <Link to="/job/" className="dropdown-item">Posted Jobs</Link>
+                                                            </div>
+                                                        </li>
+                        }
+                        {
+                            (props.role=="seeker") && <li><Link to="/jobseeker/applicationstatus" className={`nav-item nav-link ${location.pathname==="/jobseeker/applicationstatus"? "active" : ""}`}>Job Status</Link></li>
+                        }
 
                         {!localStorage.getItem("token") 
                             ?<><li><Link  to="/login" className={`nav-item nav-link ${location.pathname==="/login"? "active" : ""}`} >Login</Link></li>
@@ -44,7 +49,13 @@ function Navbar() {
                             :<li className="dropdown">
                                 <Link to="/" className="nav-item nav-link" data-toggle="dropdown"><FontAwesomeIcon icon={faUser}/>&nbsp;&nbsp;{localStorage.getItem("username")} </Link>
                                 <div className="dropdown-menu">
-                                    <Link to="/jobseeker/profile" className="dropdown-item">Profile</Link>
+                                    {
+                                        (props.role==="provider") && <Link to="/jobprovider/profile" className="dropdown-item">Profile</Link>
+                                    }
+                                    {
+                                        (props.role==="seeker") && <Link to="/jobseeker/profile" className="dropdown-item">Profile</Link>
+                                    }
+                                    
                                     <Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link>
                                 </div>
                             </li>

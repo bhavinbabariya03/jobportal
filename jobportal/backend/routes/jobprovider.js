@@ -3,6 +3,7 @@ const fetchuser=require('../middleware/fetchuser')
 const router=express.Router();
 const Jobprovider=require('../models/Jobprovider');
 const Jobseeker=require('../models/Jobseeker');
+const Job=require('../models/Job');
 const Application=require('../models/Application');
 const sendMail=require('../sendMail');
 
@@ -89,6 +90,12 @@ router.post('/editprofile/',fetchuser,async (req,res)=>{
     try{
         let editdata=req.body;
         let data=await Jobprovider.findOne({email:req.user.email});
+
+        let jobs=await Job.find({postedby:data.id});
+        for(let i=0; i<jobs.length; i++){
+            await Job.findByIdAndUpdate(jobs[i]._id,{$set: {"cname" : editdata.cname, "city" : editdata.city, "state" : editdata.state}},{new: true})
+        }
+        
         if(data){
             
             let editeddata=await Jobprovider.findByIdAndUpdate(data.id,{$set: editdata},{new: true});

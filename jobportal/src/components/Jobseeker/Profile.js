@@ -37,9 +37,9 @@ function Profile() {
 
     return( 
     <div>
-        {mode=="update" ? <UpdateProfile profile={profile} changemode={changemode}/>: ""}
-        {mode=="create" ? <CreateProfile changemode={changemode}/>: ""}
-        {mode=="show" ? <ShowProfile profile={profile} setprofile={setprofile} showProfile={showProfile} handleUpdate={handleUpdate}/> : ""}
+        {mode==="update" ? <UpdateProfile profile={profile} changemode={changemode}/>: ""}
+        {mode==="create" ? <CreateProfile changemode={changemode}/>: ""}
+        {mode==="show" ? <ShowProfile profile={profile} setprofile={setprofile} showProfile={showProfile} handleUpdate={handleUpdate}/> : ""}
     </div>
     )
 }
