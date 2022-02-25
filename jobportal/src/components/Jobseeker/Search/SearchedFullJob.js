@@ -1,14 +1,14 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import {useLocation,useHistory} from 'react-router-dom'
 
-function ViewFulljob() {
+function SearchedFulljob() {
     let location=useLocation();
     let history=useHistory();
     console.log(location.state)
-    const j=location.state;
+    const j=location.state.j;
 
     const handleBack=()=>{
-        history.push('/');
+        history.goBack()
     }
 
     const handleApply=async(e)=>{
@@ -30,24 +30,33 @@ function ViewFulljob() {
             alert(json.error)
         }
     }
-
-    // useEffect(() => {
-    //     setarr(j.job.description.split("\n"));
-    //     console.log(arr)
-    // }, [])
     
+    var getdate = function(d) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var d = new Date(d);
+        var date = d.getDate();
+        var month = monthNames[d.getMonth()]
+        var year = d.getFullYear();
+        return date + " " + month + " " + year;
+    }
+
 return (
-<div className='container mt-5'>
+<div className='container mt-5' style={{color:"black"}}>
     <div className="row mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" >
         <div style={{padding:"25px"}}>
             <h2 style={{fontSize:"25px"}}>{j.job.title}</h2><br/>
             <p className='mt-3'><b>Type :</b> {j.job.type}</p>
             <p><b>Role :</b>  {j.job.role}</p>
             <p><b>HR Name:</b>  {j.job.hrname}</p>
-            <p><b>Posted Date : </b><span>{j.job.postdate}</span></p>
-            <p><b>Description : </b>{j.job.description}</p>
             <p><b>Skills : </b>{j.job.skill}</p>
             <p><b>Experience  : </b>{j.job.expfrom} To {j.job.expto} years</p>
+            <p><b>Description : </b></p>
+            <p><b>Check Company Details : </b><a target="_blank" href={`http://localhost:3000/jobprovider/profile/view/${j.jobprovider._id}`}>click here</a></p>
+            <div className='border' style={{padding:"20px"}} dangerouslySetInnerHTML={{ __html: j.job.description}} />
+            <br/>
+            <p><b>Posted Date : </b><span>{getdate(j.job.postdate)}</span></p>
         </div>
         <div className='mt-2 mb-4'>
             <button className='btn btn-primary' style={{width:"60px"}} onClick={handleBack}>Back</button>&nbsp;&nbsp;
@@ -58,4 +67,4 @@ return (
   )
 }
 
-export default ViewFulljob
+export default SearchedFulljob

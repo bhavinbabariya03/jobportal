@@ -8,7 +8,7 @@ function Viewjob() {
     const job=location.state;
 
     const handleBack=()=>{
-        history.push('/job/');
+        history.goBack()
     }
 
     const handleEdit=()=>{

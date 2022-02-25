@@ -2,6 +2,8 @@ const express= require('express');
 const fetchuser=require('../middleware/fetchuser')
 const router=express.Router();
 const Jobprovider=require('../models/Jobprovider');
+const Jobseeker=require('../models/Jobseeker');
+const Application=require('../models/Application');
 const sendMail=require('../sendMail');
 
 
@@ -112,4 +114,76 @@ router.post('/getemail',fetchuser,async (req,res)=>{
     }
 })
 
+//Route 6 : Get Application Data : http://localhost:5000/api/jobprovider/getapplication/:id
+router.post('/getapplication/:id',fetchuser,async (req,res)=>{
+    const user=await req.user;
+    try
+    {
+        let data1=await Application.find({"jobId":req.params.id,round:0,hired:0,rejected:0},{"jobseekerId":1})
+        let data2=await Application.find({"jobId":req.params.id,round:1,hired:0,rejected:0},{"jobseekerId":1})
+        let data3=await Application.find({"jobId":req.params.id,round:2,hired:0,rejected:0},{"jobseekerId":1})
+        let data4=await Application.find({"jobId":req.params.id,hired:1,rejected:0},{"jobseekerId":1})
+        let data5=await Application.find({"jobId":req.params.id,rejected:1,hired:0},{"jobseekerId":1})
+        
+        let arr1=[],arr2=[],arr3=[],arr4=[],arr5=[];
+
+        data1.forEach((obj)=>{
+            arr1.push({"_id": obj.jobseekerId});
+        })
+
+        data2.forEach((obj)=>{
+            arr2.push({"_id": obj.jobseekerId});
+        })
+
+        data3.forEach((obj)=>{
+            arr3.push({"_id": obj.jobseekerId});
+        })
+
+        data4.forEach((obj)=>{
+            arr4.push({"_id": obj.jobseekerId});
+        })
+
+        data5.forEach((obj)=>{
+            arr5.push({"_id": obj.jobseekerId});
+        })
+
+        let jbs1=[],jbs2=[],jbs3=[],jbs4=[],jbs5=[];
+
+        if(arr1.length>0)
+            jbs1=await Jobseeker.find({"$or":arr1},{"profileimage":0});
+        if(arr2.length>0)
+            jbs2=await Jobseeker.find({"$or":arr2},{"profileimage":0});
+        if(arr3.length>0)
+            jbs3=await Jobseeker.find({"$or":arr3},{"profileimage":0});
+        if(arr4.length>0)
+            jbs4=await Jobseeker.find({"$or":arr4},{"profileimage":0});
+        if(arr5.length>0)
+            jbs5=await Jobseeker.find({"$or":arr5},{"profileimage":0});
+
+        res.json({success:true,data:[jbs1,jbs2,jbs3,jbs4,jbs5]})
+
+    }catch(error){
+        console.log(error)
+        res.status(500).send({success:false,error:[],warning:"Some error occured"});
+    }
+})
+
+
+//Routes for getting jobprovider profile by link whenever jobseeker click on link
+//Route 7 : POST : http://localhost:5000/api/jobprovider/profile/:id
+
+router.post('/profile/:id', fetchuser,async(req,res)=>{
+    try{
+        let jobprovider = await Jobprovider.findById(req.params.id);
+        console.log(jobprovider)
+        if(!jobprovider)
+        {
+            return res.status(404).json({success:false,error:"User profile not found"})
+        }
+        res.json({success:true,data:jobprovider})
+
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
 module.exports=router

@@ -6,6 +6,18 @@ const JobSchema=new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'jobprovider'
     },
+    cname:{
+        type: mongoose.Schema.Types.String,
+        ref: 'jobprovider'
+    },
+    city:{
+        type: mongoose.Schema.Types.String,
+        ref: 'jobprovider'
+    },
+    state:{
+        type: mongoose.Schema.Types.String,
+        ref: 'jobprovider'
+    },
     title :{
         type: String,
         required: true,

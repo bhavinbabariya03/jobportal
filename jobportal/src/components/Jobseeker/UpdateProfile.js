@@ -78,7 +78,7 @@ function UpdateProfile(props) {
                                     <h3 className="mb-0 mx-4 mt-3" >Phone *</h3>
                                 </div>
                                 <div className="col-sm-9">
-                                    <input type="text" name="contact" required className="form-control border" value={updateprofile.contact} onChange={onChange}/>
+                                    <input type="text" name="contact" required className="form-control border" value={updateprofile.contact} minLength="10" maxLength="10" onChange={onChange}/>
                                 </div>
                             </div>
                             <hr/>

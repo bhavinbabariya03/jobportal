@@ -36,11 +36,11 @@ function Navbar() {
                                 <Link to="/" className="dropdown-item">Dropdown Item 3</Link>
                             </div>
                         </li>
-                        <li><Link to="/jobprovider/profile" className={`nav-item nav-link ${location.pathname==="/jobprovider/profile"? "active" : ""}`}>Profile</Link></li>
+                        <li><Link to="/jobseeker/applicationstatus" className={`nav-item nav-link ${location.pathname==="/jobseeker/applicationstatus"? "active" : ""}`}>Profile</Link></li>
 
                         {!localStorage.getItem("token") 
-                            ?<><li><Link className="nav-item nav-link" to="/login" >Login</Link></li>
-                            <li><Link className="nav-item nav-link" to="/register">Register</Link></li></> 
+                            ?<><li><Link  to="/login" className={`nav-item nav-link ${location.pathname==="/login"? "active" : ""}`} >Login</Link></li>
+                            <li><Link  to="register" className={`nav-item nav-link ${location.pathname==="/register"? "active" : ""}`}>Register</Link></li></> 
                             :<li className="dropdown">
                                 <Link to="/" className="nav-item nav-link" data-toggle="dropdown"><FontAwesomeIcon icon={faUser}/>&nbsp;&nbsp;{localStorage.getItem("username")} </Link>
                                 <div className="dropdown-menu">

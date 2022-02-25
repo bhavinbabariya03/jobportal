@@ -176,6 +176,129 @@ router.get('/applyforjob/:id', fetchuser,
     }
 )
 
+//show all jobs to jobseeker
+//http://localhost:5000/api/jobseeker/getalljob
+router.get('/getalljob/',async (req,res)=>{
+    try{
+        let job=await Job.find();
+        var jobarr = []
+        for(let i=0; i<job.length; i++){
+            let jobprovider=await Jobprovider.findById(job[i].postedby);
+            obj={};
+            obj.job = job[i];
+            obj.jobprovider = jobprovider;
+            jobarr[i] = obj
+        }
+        res.json({success:true,jobarr});
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
+
+//searching
+//http://localhost:5000/api/jobseeker/search
+router.get('/search/:input', 
+    async (req, res)=>{
+        try{
+            // var jobarr = []
+            // let jobprovider = await Jobprovider.find({city:req.params.input});
+            // // console.log(jobprovider)
+            // for(let i=0; i<jobprovider.length; i++){
+            //     const job = await Job.find({postedby : jobprovider[i]._id});
+            //     for(let j=0; j<job.length; j++){
+
+            //     }
+                
+            // }
+            //console.log(jobarr);
+
+            input = req.params.input.toLowerCase();
+            // var regex = new RegExp(req.params.input,i);
+            const job = await Job.find(
+                {
+                    // $regex: new RegExp(skill, "i")
+                    // "$or":[
+                    //     {"title":{$regex:input}},
+                    //     {"skill":{$regex:input}},
+                    // ]
+
+                    "$or":[
+                        {"title":{$regex: input, $options : "i"}},
+                        {"skill":{$regex: input, $options : "i"}},
+                        {"city":{$regex: input, $options : "i"}},
+                        {"state":{$regex: input, $options : "i"}},
+                        {"cname":{$regex: input, $options : "i"}}
+                    ]
+                }
+            )
+            
+            var jobarr = []
+            for(let i=0; i<job.length; i++){
+                let jobprovider=await Jobprovider.findById(job[i].postedby);
+                obj={};
+                obj.job = job[i];
+                obj.jobprovider = jobprovider;
+                jobarr[i] = obj
+            }
+
+            console.log(jobarr)
+            res.json({success:true , jobarr})
+        }
+        catch(error){
+            // console.error(error.message);
+            res.status(500).json("Internal Server Error!")
+        }
+})
+
+//Routes for getting profile by link
+//Used to show profile in application to jobprovider
+
+//Route : POST : http://localhost:5000/api/jobseeker/profile/:id
+
+router.post('/profile/:id', fetchuser,async(req,res)=>{
+
+    try{
+        let jobseeker = await Jobseeker.findById(req.params.id);
+        
+        if(!jobseeker)
+        {
+            return res.status(404).json({success:false,error:"User profile not found"})
+        }
+        res.json({success:true,data:jobseeker})
+
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
+
+//Routes for getting job-applications
+//Used to show job-applications to jobseeker
+
+//Route : POST : http://localhost:5000/api/jobseeker/getapplicationstatus
+
+router.get('/getapplicationstatus',fetchuser,async(req,res)=>{
+    try{
+        let jobseeker = await Jobseeker.findOne({email:req.user.email});
+        let application = await Application.find({jobseekerId:jobseeker._id});
+
+        var jobarr = []
+        for(let i=0; i<application.length; i++){
+            let job = await Job.findById(application[i].jobId);
+            let jobprovider = await Jobprovider.findById(job.postedby);
+            obj={};
+            obj.application = application[i];
+            obj.job = job;
+            obj.jobprovider = jobprovider;
+            jobarr[i] = obj
+        }
+        
+        res.json({success:true,jobarr})
+
+    }catch(error){
+        res.status(500).send({success:false,error:"Some error occured"});
+    }
+})
+
 module.exports=router 
         
 

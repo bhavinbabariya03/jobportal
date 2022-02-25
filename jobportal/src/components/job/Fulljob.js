@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
 function Fulljob(props) {
@@ -6,13 +6,20 @@ function Fulljob(props) {
     const history=useHistory();
 
     const handleView=()=>{
-
         history.push("/job/view",job);
-        // alert("view");
     }
+
     const handleEdit=()=>{
         history.push('/job/edit',job);
     }
+
+    const handleApplication=()=>{
+        history.push('/jobprovider/application',job._id);
+    }
+    
+    useEffect(() => {
+        //API Call
+    }, [])
     
     return (
     <div className="row mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" style={{padding:"0px"}}>
@@ -25,7 +32,7 @@ function Fulljob(props) {
             <div className='mt-4'>
                 <button className='btn btn-primary' style={{width:"60px"}} onClick={handleView}>View</button>
                 <button className='mx-4 btn btn-secondary' style={{width:"65px"}} onClick={handleEdit}>Edit</button>
-                {/* <button className='btn btn-danger' style={{width:"70px"}} onClick={handleDelete}>Delete</button> */}
+                <button className='btn btn-success' style={{width:"150px"}} onClick={handleApplication}>View Application</button>
             </div>
         </div>
     </div>

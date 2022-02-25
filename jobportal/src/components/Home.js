@@ -1,8 +1,10 @@
 import React from 'react';
-import ShowJob from './Jobseeker/ShowJob';
+import ShowJob from './Jobseeker/ShowJobs/ShowJob';
+import ShowAllJob from './Jobseeker/ShowJobs/ShowAllJob';
 import video from './Jobseeker/video.mp4'
 import './Jobseeker/home.css'
 import './Login.css'
+import Search from './Jobseeker/Search/Search'
 
 function Home() {
   return <>
@@ -15,10 +17,12 @@ function Home() {
               <div class="caption">
                 <h6>Start your career now</h6>
                 <h2>Find the perfect <em>Job</em></h2>
+                 <Search className="d-flex align-items-center justify-content-center"/>
               </div>
             </div>
           </div>
-        <ShowJob/>
+         {!localStorage.getItem("token")?<></>:<ShowJob/>}
+        <ShowAllJob/>
       </div>
   </>;
 }

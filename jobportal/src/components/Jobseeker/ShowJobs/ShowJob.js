@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import ShowJobs from './ShowJobs'
-import './home.css'
+import '../home.css'
 function ShowJob() {
     const [jobdata, setjobdata] = useState([])
     let count=0;

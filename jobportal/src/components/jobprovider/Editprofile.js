@@ -145,6 +145,15 @@ function Editprofile(props) {
                 </div>
                 <hr/>
                 <div className="row">
+                    <div className="col-sm-3">
+                        <h3 className="mb-0 mx-4 mt-3" >Logo</h3>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                        <FileBase type="file" multiple={false} onDone={({ base64 }) => setedit({ ...edit, logo: base64 })} />
+                    </div>
+                </div>
+                <hr/>
+                <div className="row">
                     <div className="col-sm-12">
                         <button className="btn btn-info mx-3" onClick={handleEdit}>Edit Profile</button>
                         <button className="btn btn-info " onClick={handleBack}>Back</button>

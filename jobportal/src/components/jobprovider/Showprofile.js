@@ -105,7 +105,7 @@ function Showprofile(props) {
                 
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-info" onClick={handleEdit}>Edit</button>
+                        <button class="btn btn-info" style={{width:"70px"}} onClick={handleEdit}>Edit</button>
                     </div>
                 </div>
             </div>

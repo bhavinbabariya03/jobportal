@@ -25,7 +25,7 @@ function ShowProfile(props) {
         {
             props.profile.map((f)=>{
             return(
-            <div className="container emp-profile" key={f._id}>
+            <div className="container emp-profile shadow-lg p-8 mb-5 bg-white rounded" key={f._id}>
                 <form method="post">
                     <div className="row">
                         <div className="col-md-4">

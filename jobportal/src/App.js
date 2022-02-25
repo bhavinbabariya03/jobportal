@@ -5,7 +5,10 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import JobseekerProfile from './components/Jobseeker/Profile';
-import ViewFullJob from './components/Jobseeker/ViewFullJob';
+import ApplicationStatus from './components/Jobseeker/ApplicationStatus';
+import ViewFullJob from './components/Jobseeker/ShowJobs/ViewFullJob';
+import SearchedJob from './components/Jobseeker/Search/SearchedJob';
+import SearchedFullJob from './components/Jobseeker/Search/SearchedFullJob';
 import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
@@ -15,6 +18,9 @@ import Createjob from './components/job/Createjob';
 import Showjob from './components/job/Showjob';
 import Viewjob from './components/job/Viewjob';
 import Editjob from './components/job/Editjob';
+import Application from './components/jobprovider/Application';
+import Viewprofile from './components/Application/Viewprofile';
+import ViewProviderProfile from './components/Jobseeker/ViewProviderProfile';
 
 function App() {
 
@@ -44,10 +50,16 @@ function App() {
           <Route exact path="/register" ><Register showAlert={showAlert}/></Route>
           <Route exact path="/"><Home/></Route>
           <Route exact path="/about"><About/></Route>
+          <Route exact path="/jobseeker/profile/view/:id"><Viewprofile/></Route>
           <Route exact path="/jobseeker/profile" ><JobseekerProfile/></Route>
           <Route exact path="/jobseeker/job/view"><ViewFullJob/></Route>
+          <Route path="/jobseeker/job/search"><SearchedFullJob/></Route>
+          <Route exact path="/jobseeker/jobs/search"><SearchedJob/></Route>
+          <Route exact path="/jobseeker/applicationstatus"><ApplicationStatus/></Route>
           <Route exact path="/jobprovider"><JobproviderHome user={user}/></Route>
+          <Route exact path="/jobprovider/profile/view/:id"><ViewProviderProfile/></Route>
           <Route exact path="/jobprovider/profile"><Profile/></Route>
+          <Route exact path="/jobprovider/application/"><Application/></Route>
           <Route exact path="/job/"><Showjob/></Route>
           <Route exact path="/job/create"><Createjob/></Route>
           <Route exact path="/job/view"><Viewjob/></Route>
