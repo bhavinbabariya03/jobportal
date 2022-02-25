@@ -21,6 +21,7 @@ import Editjob from './components/job/Editjob';
 import Application from './components/jobprovider/Application';
 import Viewprofile from './components/Application/Viewprofile';
 import ViewProviderProfile from './components/Jobseeker/ViewProviderProfile';
+import Viewprofile from './components/Application/Viewprofile';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
     setuser(u);
   }
   return (
-    <>
+    <div style={{backgroundColor:"#EEEEEE"}}>
       <Navbar/>
       <br/>
       <br/>
@@ -64,8 +65,9 @@ function App() {
           <Route exact path="/job/create"><Createjob/></Route>
           <Route exact path="/job/view"><Viewjob/></Route>
           <Route exact path="/job/edit"><Editjob/></Route>
+          <Route exact path="/jobseeker/profile/view/:id"><Viewprofile/></Route>
         </Switch>
-    </>
+    </div>
     
   );
 }
