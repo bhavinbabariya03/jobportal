@@ -19,7 +19,6 @@ function Showprofile(props) {
         if(json.success)
         {
             props.setData(json.data);
-            // console.log(data)
         }
     }
 

@@ -1,5 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import {useLocation,useHistory} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function ViewFulljob() {
     let location=useLocation();
@@ -24,10 +27,10 @@ function ViewFulljob() {
         const json = await response.json()
         console.log(json)
         if(json.success){
-            alert('You have successfully applied for this job!!');
+            toast.success("You have successfully applied for this job!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
         else{
-            alert(json.error)
+            toast.error(json.error, {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
     
@@ -51,15 +54,15 @@ return (
             <p><b>Role :</b>  {j.job.role}</p>
             <p><b>HR Name:</b>  {j.job.hrname}</p>
             <p><b>Skills : </b>{j.job.skill}</p>
-            <p><b>Experience  : </b>{j.job.expfrom} To {j.job.expto} years</p>
+            <p><b>Experience  : </b>{j.job.expfrom} to {j.job.expto} years</p>
+            <p><b>Check Company Details : </b><a target="_blank" href={`http://localhost:3000/jobprovider/profile/view/${j.jobprovider._id}`}>Click here</a></p>
             <p><b>Description : </b></p>
-            <p><b>Check Company Details : </b><a target="_blank" href={`http://localhost:3000/jobprovider/profile/view/${j.jobprovider._id}`}>click here</a></p>
             <div className='border' style={{padding:"20px"}} dangerouslySetInnerHTML={{ __html: j.job.description}} />
             <br/>
             <p><b>Posted Date : </b><span>{getdate(j.job.postdate)}</span></p>
 
         </div>
-        <div className='mt-2 mb-4'>
+        <div className='mt-2 mb-4 ml-4'>
             <button className='btn btn-primary' style={{width:"60px"}} onClick={handleBack}>Back</button>&nbsp;&nbsp;
             <button className='btn btn-secondary' style={{width:"60px"}} onClick={handleApply}>Apply</button>
         </div>

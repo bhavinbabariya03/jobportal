@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import FileBase from 'react-file-base64';
 import '../Login.css';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function CreateProfile(props) {
     const [details, setdetails] = useState({email:"", firstName:"", lastName:"", bio:"", contact:"", collage:"", degree:"", skills:"", experience:"", language: "", englishlevel:"", city:"", state:"", resume:"", profileimage:""});
@@ -21,16 +24,15 @@ function CreateProfile(props) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
                 },
-                // body: JSON.stringify({firstName:details.firstName, lastName:details.lastName, bio:details.bio, contact:details.contact, collage:details.collage, degree:details.degree, skills:details.skills, experience:details.experience, language: details.language, englishlevel:details.englishlevel, city:details.city, state:details.state, resume:details.resume, profileimage:details.profileimage})
                 body: JSON.stringify(details)
             });
         const json = await response.json()
         if(json.success){
             props.changemode("show")
-            alert('profile created successfully!')
+            toast.success("Profile has been created successfully!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
         else{
-            alert('error!')
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
 

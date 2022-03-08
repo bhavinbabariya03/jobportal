@@ -23,6 +23,9 @@ function JobproviderHome() {
 		if (json.success) {
 			setmode("complete");
 		}
+		else{
+			setmode("incomplete")
+		}
 	};
 
 	useEffect(async() => {
@@ -31,9 +34,6 @@ function JobproviderHome() {
 	
 	return (
 		<div className="container mt-5 ">
-			{/* <button class="btn btn-primary btn-lg float-right" type="submit">
-				Post Job
-			</button> */}
 			<div className="row">
 				{
 					(mode==="") && <Loading/>

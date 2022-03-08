@@ -1,25 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import "./showprofile.css";
 
-function ShowProfile(props) {
-    // const [profile, setprofile] = useState([]);
-    // const showProfile = async ()=>{
-    //     const respose=await fetch("http://localhost:5000/api/jobseeker/fetchdetails",{
-    //         method:'GET',
-    //         headers:{
-    //             'Content-Type' : 'application/json',
-    //             'auth-token': localStorage.getItem('token'),
-    //         }
-    //     });
-    //     const json=await respose.json()
-    //     //console.log(json)
-    //     setprofile(json)
-    // }
-    
+function ShowProfile(props) { 
     useEffect(() => {
        props.showProfile();
     }, []);
-    var skillarr;
+    
+    var skillarr, skill;
     return( 
     <>
         {
@@ -61,9 +48,8 @@ function ShowProfile(props) {
                             <div className="profile-work">
                                 <h3>SKILLS</h3>
                                 <div style={{display:"none"}}>
-                                {
-                                    skillarr = f.skills.split(',')
-                                }      
+                                {skill = f.skills.toLowerCase()}
+                                {skillarr = skill.split(',')}        
                                 </div>
                                 <a>{skillarr[0]}</a><br/>
                                 <a>{skillarr[1]}</a><br/>

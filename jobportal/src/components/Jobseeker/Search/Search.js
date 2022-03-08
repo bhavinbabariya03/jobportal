@@ -2,7 +2,9 @@ import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-//import { useHistory } from 'react-router-dom';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function Search() {
     const [input, setInput] = useState('');
@@ -10,7 +12,6 @@ function Search() {
     const history=useHistory();
     const search = async (e)=>{
         e.preventDefault();
-        console.log(input)
         const response = await fetch("http://localhost:5000/api/jobseeker/search/"+input, {
         method: 'GET',
         headers: {
@@ -25,19 +26,17 @@ function Search() {
             history.push({
                 pathname: "/jobseeker/jobs/search",
                 search: 'query='+input,
-                //hash: "#"+input,
                 state:{jobs:json.jobarr,input:input}
             })
-            console.log("serach results")
         }
         else{
-            alert('error!')
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
     return(
         <>
-        <div className="search-box">
-            <button className="btn-search"><FontAwesomeIcon icon={faSearch} /></button>
+        <div className="search-box" style={{marginLeft: '35px'}}>
+            <button onClick={search} className="btn-search" ><FontAwesomeIcon icon={faSearch} /></button>
             <input type="text" className="input-search" placeholder="Type to Search..." value={input} onInput={e => setInput(e.target.value)} onKeyDown={(event) => {if(event.key === 'Enter'){search(event)}}}/>
         </div>
         </>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import Loading from './../Loading'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function ViewProviderProfile() {
     let { id } = useParams();
@@ -21,7 +24,7 @@ function ViewProviderProfile() {
             }, 1000);
         }
         else {
-            console.log(json.error)
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
 

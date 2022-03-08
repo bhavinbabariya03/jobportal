@@ -1,14 +1,13 @@
 const nodemailer=require('nodemailer')
+require('dotenv').config();
 
 const sendMail=(to,subject,html)=>{
     //make transporter
     var transporter = nodemailer.createTransport({
         service:'gmail',
         auth : {     
-            // user:process.env.DEFAUL_EMAIL,
-            // pass:process.env.DEFAUL_EMAIL_PASSWORD
-            user:'nbjtestproject@gmail.com',
-            pass:'nbj@1234'
+            user:process.env.AUTH_EMAIL,
+            pass:process.env.AUTH_PASS
         },
         secure:true,
         tls: {
@@ -18,11 +17,9 @@ const sendMail=(to,subject,html)=>{
  
     //prepare Mail Option
     var mailOptions = {
-        from : 'nbjtestproject@gmail.com',
+        from : process.env.AUTH_EMAIL,
         to : to ,
         subject : subject ,
-       
-        // html : "<h5>Your OTP is "+OTP +"</h5>"
         html : html
     }
 

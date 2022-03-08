@@ -1,8 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import Editorbox from "./Editorbox";
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
-function Createjob(props) {
+function Createjob() {
 
     let history=useHistory()
     
@@ -31,14 +34,14 @@ function Createjob(props) {
                 body: JSON.stringify(jobdata)
             });
             const json = await response.json()
-            console.log(json);
+            // console.log(json);
             if(json.success)
             {
-                alert("job created successfully");
+                toast.success("Job has been posted successfully!", {position: toast.POSITION.BOTTOM_RIGHT})
                 history.push('/job/')
             }
             else{
-                alert(json.error);
+                toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
     }
@@ -96,7 +99,6 @@ return <div className="container" >
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        {/* <textarea type="text" className="form-control" required name="description" value={jobdata.description} onChange={onChange}/> */}
                         <Editorbox name="description" setData={setjobdata} data={jobdata}/>
                     </div>
                 </div>

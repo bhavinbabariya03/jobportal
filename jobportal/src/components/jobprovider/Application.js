@@ -1,5 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function Application() {
     let location=useLocation();
@@ -50,7 +53,7 @@ function Application() {
         }
         else
         {
-            alert(json.error)
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
     useEffect(() => {
@@ -78,7 +81,7 @@ function Application() {
                 getData();
             }
             else{
-                alert(json.error);
+                toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
     }
@@ -104,7 +107,7 @@ function Application() {
                 getData();
             }
             else{
-                alert(json.error);
+                toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
     }
@@ -130,7 +133,7 @@ function Application() {
                 getData();
             }
             else{
-                alert(json.error);
+                toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
 

@@ -23,6 +23,12 @@ const UserSchema=new Schema({
         type: Date,
         default: Date.now
     },
+
+    //new
+    verified :{
+        type : Boolean,
+        default: false
+    }
 })
 const User=mongoose.model('user',UserSchema);
 // User.createIndexes();

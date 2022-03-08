@@ -1,6 +1,9 @@
 import { hasSelectionSupport } from '@testing-library/user-event/dist/utils';
 import React,{useState,useEffect} from 'react';
 import FileBase from 'react-file-base64';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function Editprofile(props) {
 
@@ -29,12 +32,11 @@ function Editprofile(props) {
         const json = await response.json()
         if(json.success)
         {
-            // console.log(json.editeddata);
-            // console.log("data edited successfully");
+            toast.success("Profile has been updated successfully!", {position: toast.POSITION.BOTTOM_RIGHT})
             handleBack();
         }
         else{
-            alert(json.error);
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
 

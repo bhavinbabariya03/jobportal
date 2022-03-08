@@ -1,9 +1,11 @@
 import React,{useState} from 'react'
 import {useLocation,useHistory} from 'react-router-dom'
 import Editorbox from './Editorbox';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function Editjob() {
-
     let location=useLocation();
     let history=useHistory();
     
@@ -30,10 +32,11 @@ function Editjob() {
 
             if(json.success)
             {
+                toast.success("Job has been updated successfully!", {position: toast.POSITION.BOTTOM_RIGHT})
                 history.push('/job/view',json.job);
             }
             else{
-                alert(json.error);
+                toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
         
@@ -105,7 +108,6 @@ return <div className="container" >
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        {/* <textarea type="text" className="form-control" required name="description" value={editjob.description} onChange={onChange}/> */}
                         <Editorbox name="description" setData={seteditjob} data={editjob}/>
                     </div>
                 </div>

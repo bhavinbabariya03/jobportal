@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react';
 import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
+import Verified from './components/Verified';
 import { Route , Switch,Redirect} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
@@ -11,6 +12,8 @@ import Viewprofile from './components/Application/Viewprofile';
 import Jobprovider from './components/Jobprovider';
 import Jobseeker from './components/Jobseeker';
 import PageNotFound from './components/PageNotFound';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
 
@@ -25,6 +28,13 @@ function App() {
         setTimeout(() => {
             setAlert(null);
         }, 2000);
+    }
+
+    const displayAlert = (message, type)=>{
+        setAlert({
+          msg: message,
+          type: type
+        })
     }
 
   const getRole=async()=>{
@@ -44,7 +54,6 @@ function App() {
 
   useEffect(async() => {
     getRole();
-    console.log("get role")
   }, [])
   
   return (
@@ -70,6 +79,9 @@ function App() {
             <Route exact path="/"><Redirect to='/login'/></Route>
             <Route exact path="/login" ><Login showAlert={showAlert} setrole={setrole}/></Route>
             <Route exact path="/register" ><Register showAlert={showAlert}/></Route>
+            <Route exact path="/verified/:message" ><Verified/></Route>
+            <Route exact path="/forgotpassword" ><ForgotPassword displayAlert={displayAlert} showAlert={showAlert}/></Route>
+            <Route exact path="/resetpassword/:userId/:resetString" ><ResetPassword showAlert={showAlert}/></Route>
             <Route path="*"><PageNotFound/></Route>
           </Switch>
         }

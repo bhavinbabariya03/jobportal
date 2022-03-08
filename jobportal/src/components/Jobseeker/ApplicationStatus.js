@@ -21,15 +21,15 @@ function ApplicationStatus() {
 
     var checkApplicationStatus = function (status) {
         if (status.rejected === 1)
-            return "Sorry you are rejected!!"
+            return "Sorry, you are rejected!"
         else if (status.hired === 1)
-            return "Congrats! You are Hired!!"
+            return "Congrats! You are Hired!"
         else if (status.round === 0)
-            return "Just Applied"
+            return "Just Applied!"
         else if (status.round === 1)
             return "Aptitude cleared!"
         else if (status.round === 2)
-            return "Technical round cleared!!"
+            return "Technical round cleared!"
     }
 
     var getdate = function (d) {

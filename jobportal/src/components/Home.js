@@ -9,15 +9,15 @@ import Search from './Jobseeker/Search/Search'
 function Home() {
   return <>
       <div>
-          <div class="main-banner" id="top">
+          <div className="main-banner" id="top">
             <video autoPlay muted loop id="bg-video">
                 <source src={video} type="video/mp4" />
             </video>
-            <div class="video-overlay header-text">
-              <div class="caption">
+            <div className="video-overlay header-text">
+              <div className="caption">
                 <h6>Start your career now</h6>
                 <h2>Find the perfect <em>Job</em></h2>
-                 <Search className="d-flex align-items-center justify-content-center"/>
+                <Search/>
               </div>
             </div>
           </div>

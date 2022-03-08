@@ -1,5 +1,9 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
+import exp from '../exp.png'
+import loc from '../loc.png'
+import skill from '../skill.png'
+import descr from '../descr.png'
 
 function ShowJobs(props) {
     const {j}=props
@@ -46,28 +50,39 @@ function ShowJobs(props) {
         history.push("/jobseeker/job/view", j);
     }
 
+    function extractContent(s) {
+        var span = document.createElement('span');
+        span.innerHTML = s;
+        return span.textContent || span.innerText;
+    };
+
     var logostyle = {
         display: "inline-block",
         position: "relative",
-        width: "150px",
-        height: "150px",
+        width: "75px",
+        height: "75px",
         overflow: "hidden",
         borderRadius: "50%",
     }
     
     return (
-        <div className="row mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" style={{cursor: "pointer"}} onClick={handleView}>
-            <div style={{padding:"25px"}}>
-                <div class="row">
-                    <div class="col-6 col-md-2"><img src={j.jobprovider.logo} style={logostyle} alt=""/></div>
-                    <div class="col-12 col-md-8">
-                        <h1>{j.job.title}</h1>
-                        <h3>{j.jobprovider.cname}</h3>
-                        <h4 className='mt-3'>{j.job.expfrom}-{j.job.expto} years <span className="mx-4">{j.jobprovider.city}</span></h4>
-                        <h4 style={{whiteSpace: "nowrap",textOverflow: "ellipsis",overflow: "hidden"}}>{j.job.description}</h4>
-                        <h5 className="mt-4">{datediff(j.job.postdate)}</h5>
-                    </div>
-                 </div>
+         <div className="col-5 mx-4 mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" style={{ cursor: "pointer" }} onClick={handleView}>
+            <div className="row" style={{ padding: "25px" }}>
+                <div className="col-3"><img src={j.jobprovider.logo} style={logostyle} alt="" /></div>
+                <div className="col-9">
+                    <h1>{j.job.title}</h1>
+                    <h3>{j.jobprovider.cname}</h3>
+                </div>
+                <div className="ml-3">
+                    <h4 className='mt-4'><img src={exp} style={{ width: "18px", height: "18px" }} />&nbsp;&nbsp;{j.job.expfrom}-{j.job.expto} years &nbsp;&nbsp;
+                        <span className="mx-4">
+                            <img src={loc} style={{ width: "16px", height: "18px" }} />&nbsp;&nbsp;{j.jobprovider.city}
+                        </span>
+                    </h4>
+                    <h4 className='mt-4'><img src={skill} style={{ width: "22px", height: "22px" }} />&nbsp;&nbsp;{j.job.skill}</h4>
+                    <h4 className='mt-4' style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}><img src={descr} style={{ width: "21px", height: "18px" }} />&nbsp;{extractContent(j.job.description)}</h4>
+                    <h5 className="mt-4">{datediff(j.job.postdate)}</h5>
+                </div>
             </div>
         </div>
     )

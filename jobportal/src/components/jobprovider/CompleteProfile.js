@@ -16,8 +16,6 @@ function CompleteProfile(props) {
     const handleSave=async (e)=>{
         e.preventDefault();
         setloading(true);
-        // console.log(profile);
-        // console.log("handle save");
 
         const response = await fetch("http://localhost:5000/api/jobprovider/createprofile", {
             method: 'POST',

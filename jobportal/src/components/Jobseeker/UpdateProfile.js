@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import FileBase from 'react-file-base64';
 import '../Login.css';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
 function UpdateProfile(props) {
-    // const [details, setdetails] = useState({firstName:"", lastName:"", bio:"", contact:"", collage:"", degree:"", skills:"", experience:"", language: "", englishlevel:"", city:"", state:"", profileimage:""});
-    //const [error, seterror] = useState([]);
-    //const [updatedetails, setupdatedetails] = useState({firstName:"", lastName:"", bio:"", contact:"", collage:"", degree:"", skills:"", experience:"", language: "", englishlevel:"", city:"", state:"", profileimage:""})
-
     const [updateprofile, setupdateprofile] = useState(props.profile[0])
 
     const onChange=(e)=>{
@@ -27,10 +26,10 @@ function UpdateProfile(props) {
         const json=await respose.json();
         if(json.success){
             props.changemode("show")
-            alert('profile updated successfully!')
+            toast.success("Profile has been Updated Successfully.", {position: toast.POSITION.BOTTOM_RIGHT})
         }
         else{
-            alert('error!')
+            toast.error("Some problem occured! Please Try Again!", {position: toast.POSITION.BOTTOM_RIGHT})
         }
     }
 

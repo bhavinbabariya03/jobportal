@@ -2,11 +2,11 @@ const express= require('express');
 const fetchuser=require('../middleware/fetchuser')
 const router=express.Router();
 const Job=require('../models/Job');
+const Jobseeker=require('../models/Jobseeker');
 const Jobprovider=require('../models/Jobprovider');
 const sendMail=require('../sendMail');
 
 //Route 1 : Create Job  : http://localhost:5000/api/job/createjob
-
 router.post('/createjob',fetchuser,async (req,res)=>{
     
     const {title,role,type,hrname,skill,description,expfrom,expto}=req.body;
@@ -24,9 +24,11 @@ router.post('/createjob',fetchuser,async (req,res)=>{
             arr.push({"skills": { $regex: new RegExp(skill, "i") }});
         })
 
-        //find eligible jobseeker job for required skills
-        let eligible=await Jobseeker.find({"$and": arr},{"email":1});
+        console.log(arr)
 
+        // find eligible jobseeker job for required skills
+        let eligible=await Jobseeker.find({"$and": arr},{"email":1});
+        // console.log(eligible + "hello")
         //send mail to all eligible jobseeker
         eligible.forEach((obj)=>{
             sendMail(obj.email,subject,html);

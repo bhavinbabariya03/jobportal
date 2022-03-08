@@ -161,7 +161,7 @@ router.get('/applyforjob/:id', fetchuser,
         let jobseeker = await Jobseeker.findOne({email:req.user.email});
         let applicationdata=await Application.findOne({jobId:req.params.id, jobseekerId:jobseeker.id});
         if(applicationdata){
-            return res.status(400).json({success:false,error:"You have already applied for this job!!"})
+            return res.status(400).json({success:false,error:"You have already applied for this job!"})
         }
 
         //otherwise store the data into database
@@ -200,28 +200,10 @@ router.get('/getalljob/',async (req,res)=>{
 router.get('/search/:input', 
     async (req, res)=>{
         try{
-            // var jobarr = []
-            // let jobprovider = await Jobprovider.find({city:req.params.input});
-            // // console.log(jobprovider)
-            // for(let i=0; i<jobprovider.length; i++){
-            //     const job = await Job.find({postedby : jobprovider[i]._id});
-            //     for(let j=0; j<job.length; j++){
-
-            //     }
-                
-            // }
-            //console.log(jobarr);
-
             input = req.params.input.toLowerCase();
             // var regex = new RegExp(req.params.input,i);
             const job = await Job.find(
                 {
-                    // $regex: new RegExp(skill, "i")
-                    // "$or":[
-                    //     {"title":{$regex:input}},
-                    //     {"skill":{$regex:input}},
-                    // ]
-
                     "$or":[
                         {"title":{$regex: input, $options : "i"}},
                         {"skill":{$regex: input, $options : "i"}},
@@ -240,8 +222,7 @@ router.get('/search/:input',
                 obj.jobprovider = jobprovider;
                 jobarr[i] = obj
             }
-
-            console.log(jobarr)
+            
             res.json({success:true , jobarr})
         }
         catch(error){

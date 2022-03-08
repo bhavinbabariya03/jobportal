@@ -24,7 +24,7 @@ function Fulljob(props) {
     return (
     <div className="row mt-2 mb-2 shadow p-3 mb-5 bg-white rounded" style={{padding:"0px"}}>
         <div style={{padding:"25px"}}>
-            <h2>{props.no}. {job.title}</h2>
+            <h2>{job.title}</h2>
             <p className='mt-3'><b>Type :</b> {job.type}</p>
             <p><b>Role :</b>  {job.role}</p>
             <p><b>HR :</b>  {job.hrname}</p>

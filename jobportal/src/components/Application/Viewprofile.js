@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {useParams } from "react-router-dom";
 import Loading from './../Loading'
 
-function Viewprofile(props) {
+function Viewprofile() {
     let {id}=useParams();
     
     const [data, setdata] = useState(null)
@@ -31,6 +31,7 @@ function Viewprofile(props) {
         getProfile();
     }, [])
     
+    var skillarr, skill;
     return (
         <>
         {
@@ -65,11 +66,16 @@ function Viewprofile(props) {
                <div className="row">
                    <div className="col-md-4">
                        <div className="profile-work">
-                           <h3><b>SKILLS</b></h3>
-                           <div style={{display:"none"}}>
-       
-                           </div>
-                           <a>{data.skills}</a><br/>
+                            <h3>SKILLS</h3>
+                            <div style={{display:"none"}}>
+                            {skill = data.skills.toLowerCase()}
+                            {skillarr = skill.split(',')}      
+                            </div>
+                            <a>{skillarr[0]}</a><br/>
+                            <a>{skillarr[1]}</a><br/>
+                            <a>{skillarr[2]}</a><br/>
+                            <a>{skillarr[3]}</a><br/>
+                            <a>{skillarr[4]}</a><br/> 
                        </div>
                    </div>
                    <div className="col-md-8">

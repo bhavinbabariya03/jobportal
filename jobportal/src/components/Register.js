@@ -1,11 +1,12 @@
 import React from 'react';
 import './Login.css';
 import { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure()
 
-function Register(props) {
-
-    let history = useHistory();
+function Register() {
     const [credentials, setcredentials] = useState({ email: "", username: "", pass: "", rpass: "" });
     const [error, seterror] = useState([]);
 
@@ -17,7 +18,7 @@ function Register(props) {
     const RegisterNow = async (str) => {
 
         if (credentials.pass !== credentials.rpass)
-            props.showAlert("password should be same", "warning");
+            toast.warning("Both passwords should be same.", {position: toast.POSITION.BOTTOM_RIGHT})
         else {
             const response = await fetch("http://localhost:5000/api/auth/", {
                 method: 'POST',
@@ -28,16 +29,13 @@ function Register(props) {
             });
             const json = await response.json()
 
-            //console.log(json)
-
             if (json.success) {
-                history.push('/login');
-                props.showAlert("Registered Successfully", "success");
+                toast.success(json.message, {position: toast.POSITION.BOTTOM_RIGHT})
             }
             else {
                 seterror(json.error);
                 if (json.warning)
-                    props.showAlert(json.warning, "danger");
+                    toast.error(json.warning, {position: toast.POSITION.BOTTOM_RIGHT})
             }
         }
 
@@ -54,51 +52,9 @@ function Register(props) {
     }
 
     return (
-    //<div>
-    // 	  <section className="ftco-section">
-    // 		<div className="container">
-    // 			<div className="row justify-content-center">
-    // 				<div className="col-md-6 col-lg-5">
-    // 					<div className="login-wrap p-4 p-md-5">
-    //                         {/* <div className="icon d-flex align-items-center justify-content-center">
-    //                             <span className="fa fa-user-o"></span>
-    //                         </div> */}
-    //                         <h3 className="text-center mb-4">Register</h3>
-    //                         <form className="login-form">
-    //                             <div className="form-group">
-    //                                 <input type="email" className="form-control rounded-left" name="email" placeholder="Email" value={credentials.email} onChange={onChange} required/>
-    //                             </div>
-    //                             <div className="form-group">
-    //                                 <input type="text" className="form-control rounded-left" name="username" placeholder="Username" value={credentials.username} onChange={onChange} required/>
-    //                             </div>
-    //                             <div className="form-group d-flex">
-    //                                 <input type="password" className="form-control rounded-left" name="pass" placeholder="Password" value={credentials.pass} onChange={onChange} required/>
-    //                             </div>
-    //                             <div className="form-group d-flex">
-    //                                 <input type="password" className="form-control rounded-left" name="rpass" placeholder="Retype Password" value={credentials.rpass} onChange={onChange} required/>
-    //                             </div>
-    //                             <div className="form-group d-flex">
-    //                                 {error.length!=0 && <ul>{error.map((e)=>{
-    //                                     return <li key={e.msg}>{e.msg}</li>
-    //                                     })}
-    //                                 </ul>
-    //                                 }
-    //                             </div>
-    //                             <div className="form-group text-center">
-    //                                 <button type="submit" className="__submit btn btn-primary rounded  p-3 px-5 mt-5" onClick={RegisterAsSeeker}>Register as Jobseeker</button>
-    //                                 <div>OR</div>
-    //                                 <button type="submit" className="__submit btn btn-primary rounded  p-3 px-5 " onClick={RegisterAsProvider}>Register as JobProvider</button>
-    //                             </div>
-    //                         </form>
-    // 	                </div>
-    // 			    </div>
-    // 			</div>
-    // 		</div>
-    // 	</section>
-    //   </div>;
     
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div className="col-5" style={{ marginTop: '40px' }}>
+        <div className="col-6" style={{ marginTop: '40px' }}>
             <div className="shadow-lg p-3 mb-5 bg-white rounded">
                 <h2 style={{ color: "#0062cc", textAlign: "center" }}>
                     Register Yourself
@@ -139,7 +95,7 @@ function Register(props) {
                                 <h3 className="mb-0 mx-4 mt-3" >Retype Password</h3>
                             </div>
                             <div className="col-sm-9 text-secondary">
-                                <input type="password" className="form-control" name="rpass" required value={credentials.repass} onChange={onChange} />
+                                <input type="password" className="form-control" name="rpass" required value={credentials.rpass} onChange={onChange} />
                             </div>
                         </div>
                         <hr />
