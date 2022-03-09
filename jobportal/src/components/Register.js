@@ -29,6 +29,7 @@ function Register() {
             });
             const json = await response.json()
 
+            console.log(json)
             if (json.success) {
                 toast.success(json.message, {position: toast.POSITION.BOTTOM_RIGHT})
             }

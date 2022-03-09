@@ -27,7 +27,8 @@ function Navbar(props) {
                 <Link to="/" className="navbar-brand">Jobguru.com</Link>
                 <div id="main-nav" className="collapse navbar-collapse">
                     <ul className="navbar-nav ml-auto">
-                        <li><Link to="/" className={`nav-item nav-link ${location.pathname === "/" ? "active" : ""}`}>Home</Link></li>
+                        
+                        <li><Link to={(props.role == "provider") ? "/jobprovider": "/"} className={`nav-item nav-link ${(location.pathname === "/" || location.pathname === "/jobprovider") ? "active" : ""}`}>Home</Link></li>
                         {/* <li><Link to="/about" className={`nav-item nav-link ${location.pathname === "/about" ? "active" : ""}`}>About Us</Link></li> */}
 
                         {
@@ -47,7 +48,7 @@ function Navbar(props) {
                             ? <><li><Link to="/login" className={`nav-item nav-link ${location.pathname === "/login" ? "active" : ""}`} >Login</Link></li>
                                 <li><Link to="/register" className={`nav-item nav-link ${location.pathname === "/register" ? "active" : ""}`}>Register</Link></li></>
                             : <li className="dropdown">
-                                <Link to="/" className="nav-item nav-link" data-toggle="dropdown"><FontAwesomeIcon icon={faUser} />&nbsp;&nbsp;{localStorage.getItem("username")} </Link>
+                                <Link to={(props.role == "provider") ? "/jobprovider": "/"} className="nav-item nav-link" data-toggle="dropdown"><FontAwesomeIcon icon={faUser} />&nbsp;&nbsp;{localStorage.getItem("username")} </Link>
                                 <div className="dropdown-menu">
                                     {
                                         (props.role === "provider") && <Link to="/jobprovider/profile" className="dropdown-item">Profile</Link>

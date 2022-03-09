@@ -54,7 +54,7 @@ function ApplicationStatus() {
                 <table className="table table-hover shadow p-3 mb-5 bg-white rounded">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col" className="px-5">#</th>
                             <th scope="col">Company</th>
                             <th scope="col">Job Title</th>
                             <th scope="col">Application Date</th>
@@ -66,7 +66,7 @@ function ApplicationStatus() {
                             appstatus.map((obj) => {
                                 return (
                                     <tr key={count} className='border'>
-                                        <th scope="row" >{count++}</th>
+                                        <th scope="row" className='px-5'>{count++}</th>
                                         <td>{obj.jobprovider.cname}</td>
                                         <td>{obj.job.title}</td>
                                         <td>{getdate(obj.application.applicationdate)}</td>

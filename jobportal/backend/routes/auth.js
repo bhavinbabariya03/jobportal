@@ -29,6 +29,9 @@ let transporter = nodemailer.createTransport({
     auth : {
         user:process.env.AUTH_EMAIL,
         pass:process.env.AUTH_PASS
+    },secure:true,
+    tls: {
+        rejectUnauthorized: false
     }
 })
 
@@ -94,9 +97,9 @@ const sendVerificationEmail = ({_id, email}, res)=>{
                     message : "Please check your Inbox, we have sent you verification mail!"
                 })
             })
-            .catch(()=>{
+            .catch((error)=>{
                 let message = "Email verification failed!"
-                console.log(message);
+                console.log(message,error);
             })
         })
         .catch(()=>{

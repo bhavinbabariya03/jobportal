@@ -182,7 +182,11 @@ router.get('/getalljob/',async (req,res)=>{
     try{
         let job=await Job.find();
         var jobarr = []
-        for(let i=0; i<job.length; i++){
+        let n=10;
+        if(job.length < 10)
+            n=job.length;
+            
+        for(let i=0; i<n; i++){
             let jobprovider=await Jobprovider.findById(job[i].postedby);
             obj={};
             obj.job = job[i];

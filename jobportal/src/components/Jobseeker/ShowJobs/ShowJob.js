@@ -24,7 +24,9 @@ function ShowJob() {
     
     return (
         <div className='container mt-5'>
-            <h1>Recommended Jobs for you</h1>
+            <section className='text-center' style={{fontSize:"40px",color:"black",marginTop:"20px",marginBottom:"20px",fontFamily:"Patua One,cursive"}}>
+                <span className='p-5'>Recommended Jobs for you</span>
+            </section>
             <br/>
             {jobdata.length===0 && 'No Jobs to display'}
             <div className="row">

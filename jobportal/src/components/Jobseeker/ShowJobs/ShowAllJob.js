@@ -23,7 +23,9 @@ function ShowAllJob() {
     
     return (
         <div className='container mt-5'>
-            <h1>Find your Dream Job</h1>
+            <section className='' style={{fontSize:"30px",color:"black",marginTop:"20px",marginBottom:"20px",fontFamily:"Patua One,cursive"}}>
+                <span className='p-5'>{jobdata.length===0 ?'No Jobs to display' : 'Find your Dream Job'}</span>
+            </section>
             <br/>
             {jobdata.length===0 && 'No Jobs to display'}
             <div className="row">

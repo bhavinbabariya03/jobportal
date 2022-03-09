@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';  
+
 toast.configure()
 
 function Application() {
@@ -161,7 +163,7 @@ function Application() {
 
             <div className="col-2  shadow-sm p-3 mb-5 bg-white rounded" style={{borderTop:"3px solid black"}}>
                 <p style={{fontSize:"60px"}}>{round0.length+round1.length+round2.length}</p>
-                <p className='mt-3'style={{fontSize:"18px",fontWeight:"bold"}}>On the Way</p>
+                <p className='mt-3'style={{fontSize:"18px",fontWeight:"bold"}}>In Progress</p>
             </div>
 
             <div className="col-2  shadow-sm p-3 mb-5 bg-white rounded" style={{borderTop:"3px solid black"}}>
@@ -190,12 +192,10 @@ function Application() {
         {mode==="rejected" && <h1>Rejected Candidate</h1> }
 
         <br/>
-        <table className="table table-hover shadow p-3 mb-5 bg-white rounded">
+        <table id="emp" className="table table-hover shadow p-3 mb-5 bg-white rounded">
             <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col">#</th>
+                    <th scope="col" style={{paddingLeft:"40px",paddingRight:"40px"}}>#</th>
                     <th scope="col">Email</th>
                     <th scope="col">Name</th>
                     <th scope="col">Status</th>
@@ -209,10 +209,7 @@ function Application() {
                 {
                     applicationData.map((obj)=>{
                         return <tr key={count} className='border'>
-                            <th scope="col"></th>
-                            <th scope="col">
-                            </th>
-                            <th scope="row" >{count++}</th>
+                            <th scope="row" style={{paddingLeft:"40px",paddingRight:"40px"}}>{count++}</th>
                             <td>{obj.email}</td>
                             <td>{obj.firstName+" "+obj.lastName}</td>
                             {
@@ -236,6 +233,13 @@ function Application() {
                 }
             </tbody>
         </table>
+        <ReactHTMLTableToExcel  
+            className="btn btn-success mb-5 p-3 px-5"  
+            table="emp"  
+            filename="ReportExcel"  
+            sheet="Sheet"  
+            buttonText="Export to excel"
+            padding="80px"/> 
     </div>
     )
 }

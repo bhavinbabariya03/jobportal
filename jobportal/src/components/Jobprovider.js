@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route , Switch,Redirect} from 'react-router-dom';
 import Showjob from './job/Showjob';
 import Createjob from './job/Createjob';
 import Viewjob from './job/Viewjob';
@@ -13,7 +13,7 @@ function Jobprovider() {
   return (
     <div>
         <Switch>
-            <Route exact path="/"><Showjob/></Route>
+            <Route exact path="/"><Redirect to='/jobprovider'/></Route>
             <Route exact path="/job/"><Showjob/></Route>
             <Route exact path="/job/create"><Createjob/></Route>
             <Route exact path="/job/view"><Viewjob/></Route>

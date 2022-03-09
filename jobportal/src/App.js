@@ -4,9 +4,11 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import Verified from './components/Verified';
-import { Route , Switch,Redirect} from 'react-router-dom';
+import { Route,Switch,Redirect} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
+import Home from './components/Home';
+import ViewFullJob from './components/Jobseeker/ShowJobs/ViewFullJob';
 import ViewProviderProfile from './components/Jobseeker/ViewProviderProfile';
 import Viewprofile from './components/Application/Viewprofile';
 import Jobprovider from './components/Jobprovider';
@@ -14,6 +16,7 @@ import Jobseeker from './components/Jobseeker';
 import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import SearchedJob from './components/Jobseeker/Search/SearchedJob';
 
 function App() {
 
@@ -64,7 +67,8 @@ function App() {
       <Alert alert={alert}/>
 
       <Switch>
-                   
+        <Route exact path="/jobseeker/jobs/search"><SearchedJob/></Route>
+        <Route exact path="/jobseeker/job/view"><ViewFullJob/></Route>           
         <Route exact path="/jobprovider/profile/view/:id"><ViewProviderProfile/></Route>
         <Route exact path="/jobseeker/profile/view/:id"><Viewprofile/></Route>
         <Route exact path="/about"><About/></Route>
@@ -76,7 +80,8 @@ function App() {
         }
         {
           (role==="") && <Switch>
-            <Route exact path="/"><Redirect to='/login'/></Route>
+            {/* <Route exact path="/"><Redirect to='/login'/></Route> */}
+            <Route exact path="/"><Home/></Route>
             <Route exact path="/login" ><Login showAlert={showAlert} setrole={setrole}/></Route>
             <Route exact path="/register" ><Register showAlert={showAlert}/></Route>
             <Route exact path="/verified/:message" ><Verified/></Route>
