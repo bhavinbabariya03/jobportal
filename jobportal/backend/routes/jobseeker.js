@@ -259,7 +259,7 @@ router.post('/profile/:id', fetchuser,async(req,res)=>{
 //Routes for getting job-applications
 //Used to show job-applications to jobseeker
 
-//Route : POST : http://localhost:5000/api/jobseeker/getapplicationstatus
+//Route : GET : http://localhost:5000/api/jobseeker/getapplicationstatus
 
 router.get('/getapplicationstatus',fetchuser,async(req,res)=>{
     try{
@@ -269,6 +269,7 @@ router.get('/getapplicationstatus',fetchuser,async(req,res)=>{
         var jobarr = []
         for(let i=0; i<application.length; i++){
             let job = await Job.findById(application[i].jobId);
+            console.log(job)
             let jobprovider = await Jobprovider.findById(job.postedby);
             obj={};
             obj.application = application[i];
