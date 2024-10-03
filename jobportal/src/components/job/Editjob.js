@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {useLocation,useHistory} from 'react-router-dom'
-import Editorbox from './Editorbox';
+// import Editorbox from './Editorbox';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 toast.configure()
@@ -107,9 +107,9 @@ return <div className="container" >
                     <div className="col-sm-3">
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
-                    <div className="col-sm-9 text-secondary">
+                    {/* <div className="col-sm-9 text-secondary">
                         <Editorbox name="description" setData={seteditjob} data={editjob}/>
-                    </div>
+                    </div> */}
                 </div>
                 <hr/>
                 

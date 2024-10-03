@@ -28,7 +28,7 @@ let transporter = nodemailer.createTransport({
     service : "gmail",
     auth : {
         user:process.env.AUTH_EMAIL,
-        pass:process.env.AUTH_PASS
+        pass:process.env.APP_PASSWORD
     },secure:true,
     tls: {
         rejectUnauthorized: false
@@ -490,6 +490,7 @@ router.post('/',
         //new...........
         // res.json({success:true,user:user,jwt:authtoken})
         }catch(error){
+            console.log("error)))))))))))))))))", error)
             res.status(500).send({success:false,error:[],warning : "Some error occured"});
     }
 })

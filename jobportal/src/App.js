@@ -4,7 +4,7 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import Verified from './components/Verified';
-import { Route,Switch,Redirect} from 'react-router-dom';
+import { Route,Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
 import Home from './components/Home';

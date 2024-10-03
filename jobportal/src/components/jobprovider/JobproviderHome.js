@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 import { Link } from 'react-router-dom';
-import verify from './verify.jpg'
 import CompleteProfile from "./CompleteProfile";
 import Loading from "../Loading";
 import ShowJob from "./../job/Showjob";

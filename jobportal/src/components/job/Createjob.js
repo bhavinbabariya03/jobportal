@@ -99,7 +99,7 @@ return <div className="container" >
                         <h3 className="mb-0 mx-4 mt-3" >Description*</h3>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        <Editorbox name="description" setData={setjobdata} data={jobdata}/>
+                        {/* <Editorbox name="description" setData={setjobdata} data={jobdata}/> */}
                     </div>
                 </div>
                 <hr/>
